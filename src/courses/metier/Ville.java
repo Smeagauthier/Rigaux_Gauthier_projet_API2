@@ -2,6 +2,8 @@ package courses.metier;
 
 import java.util.Objects;
 
+//TABLE PAS CONNEXE A COURSE DONC CREER UN OBJET (mdc)
+
 public class Ville {
 
     private static int idVilleAct = 0;

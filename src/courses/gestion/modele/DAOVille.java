@@ -1,4 +1,8 @@
 package courses.gestion.modele;
 
-public interface DAOVille {
+import courses.metier.Ville;
+import java.util.List;
+
+public interface DAOVille extends DAO<Ville>{
+
 }

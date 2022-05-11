@@ -1,4 +1,7 @@
 package courses.gestion.modele;
 
-public interface DAOEtape {
+import courses.metier.Etape;
+
+public interface DAOEtape extends DAO<Etape>{
+
 }

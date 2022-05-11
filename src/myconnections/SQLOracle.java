@@ -6,7 +6,7 @@ public class SQLOracle {
 
     public static void main(String args[]) {
         String userid = "ora25";
-        String password = "oracle";
+        String password = "condorcet";
         String server = "mons-oracle12.condorcet.be";
         //String server = "localhost";
         String port = "1521";
