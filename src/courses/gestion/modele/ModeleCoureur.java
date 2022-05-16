@@ -48,7 +48,6 @@ public class ModeleCoureur implements DAOCoureur{
         co.setPrenom(CourRech.getPrenom());
         co.setDateNaiss(CourRech.getDateNaiss());
         co.setNationalite(CourRech.getNationalite());
-        co.setMatricule(CourRech.getMatricule());
         return co;
     }
 

@@ -19,4 +19,5 @@ public interface VueInterface<T, U> {
     U read();
 
     void affAll(List<T> lobj);
+
 }

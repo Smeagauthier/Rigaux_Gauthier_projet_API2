@@ -7,7 +7,6 @@ import java.util.Objects;
  * Classe métier de gestion d'un coureur
  *
  * @author Gauthier Rigaux
- *
  */
 
 public class Coureur {
@@ -56,12 +55,12 @@ public class Coureur {
     /**
      * Constructeur paramétré
      *
-     * @param idCoureur identifiant unique du coureur affecté par la base de données
-     * @param matricule matricule unique du coureur
-     * @param nom nom du coureur
-     * @param prenom prénom du coureur
+     * @param idCoureur   identifiant unique du coureur affecté par la base de données
+     * @param matricule   matricule unique du coureur
+     * @param nom         nom du coureur
+     * @param prenom      prénom du coureur
      * @param nationalite nationalité du coureur
-     * @param dateNaiss date de naissance du coureur
+     * @param dateNaiss   date de naissance du coureur
      */
     public Coureur(int idCoureur, String matricule, String nom, String prenom, String nationalite, LocalDate dateNaiss) {
         this.idCoureur = idCoureur;
@@ -75,11 +74,11 @@ public class Coureur {
     /**
      * Constructeur paramétré
      *
-     * @param matricule matricule unique du coureur
-     * @param nom nom du coureur
-     * @param prenom prénom du coureur
+     * @param matricule   matricule unique du coureur
+     * @param nom         nom du coureur
+     * @param prenom      prénom du coureur
      * @param nationalite nationalité du coureur
-     * @param dateNaiss date de naissance du coureur
+     * @param dateNaiss   date de naissance du coureur
      */
     public Coureur(String matricule, String nom, String prenom, String nationalite, LocalDate dateNaiss) {
         this.idCoureur = idCourAct++;
@@ -229,13 +228,6 @@ public class Coureur {
      */
     @Override
     public String toString() {
-        return "Coureur{" +
-                "idCoureur=" + idCoureur +
-                ", matricule='" + matricule + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", nationalite='" + nationalite + '\'' +
-                ", dateNaiss=" + dateNaiss +
-                '}';
+        return "Coureur{" + "idCoureur=" + idCoureur + ", matricule='" + matricule + ", nom='" + nom + ", prenom='" + prenom + ", nationalite='" + nationalite + ", dateNaiss=" + dateNaiss + '}';
     }
 }

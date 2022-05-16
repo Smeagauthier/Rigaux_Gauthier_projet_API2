@@ -7,28 +7,49 @@ import courses.metier.Ville;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModeleCourse implements DAOCourse{
+public class ModeleCourse implements DAOCourse {
 
     private List<Course> mesCourses = new ArrayList<>();
 
     @Override
-    public Course create(Course newObj) {
-        return null;
+    public Course create(Course newCourse) {
+        if (mesCourses.contains(newCourse)) return null;
+        mesCourses.add(newCourse);
+        return newCourse;
     }
 
     @Override
-    public boolean delete(Course objRech) {
+    public boolean delete(Course courseRech) {
+        Course cr = read(courseRech);
+        if (cr != null) {
+            mesCourses.remove(cr);
+            return true;
+        }
         return false;
     }
 
     @Override
-    public Course read(Course objRech) {
+    public Course read(Course courseRech) {
+        int idCourse = courseRech.getIdCourse();
+        for (Course c : mesCourses) {
+            if (c.getIdCourse() == idCourse) return c;
+        }
         return null;
     }
 
     @Override
-    public Course update(Course objRech) {
-        return null;
+    public Course update(Course courseRech) {
+        Course co = read(courseRech);
+        if (co == null) {
+            return null;
+        }
+        co.setNom(courseRech.getNom());
+        co.setDateDebut(courseRech.getDateDebut());
+        co.setDateFin(courseRech.getDateFin());
+        co.setKmTotal(courseRech.getKmTotal());
+        co.setPriceMoney(courseRech.getPriceMoney());
+
+        return co;
     }
 
     @Override

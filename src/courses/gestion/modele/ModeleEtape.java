@@ -12,23 +12,45 @@ public class ModeleEtape implements DAOEtape {
 
 
     @Override
-    public Etape create(Etape newObj) {
-        return null;
+    public Etape create(Etape newEtape) {
+        if (mesEtapes.contains(newEtape)) return null;
+        mesEtapes.add(newEtape);
+        return newEtape;
     }
 
     @Override
-    public boolean delete(Etape objRech) {
+    public boolean delete(Etape etapeRech) {
+        Etape e = read(etapeRech);
+        if (e != null) {
+            mesEtapes.remove(e);
+            return true;
+        }
         return false;
     }
 
     @Override
-    public Etape read(Etape objRech) {
+    public Etape read(Etape etapeRech) {
+        int idEtape = etapeRech.getIdEtape();
+        for (Etape e : mesEtapes) {
+            if (e.getIdEtape() == idEtape) {
+                return etapeRech;
+            }
+        }
         return null;
     }
 
     @Override
-    public Etape update(Etape objRech) {
-        return null;
+    public Etape update(Etape etapeRech) {
+        Etape e = read(etapeRech);
+        if (e == null) {
+            return null;
+        }
+        e.setNumero(etapeRech.getNumero());
+        e.setDescription(etapeRech.getDescription());
+        e.setDateEtape(etapeRech.getDateEtape());
+        e.setKm(etapeRech.getKm());
+
+        return e;
     }
 
     @Override
