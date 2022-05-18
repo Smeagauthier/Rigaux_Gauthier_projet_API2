@@ -2,5 +2,8 @@ package courses.gestion.vue;
 
 import courses.metier.Coureur;
 
-public interface VueCoureurInterface extends VueInterface<Coureur, Integer> {
+import java.util.List;
+
+public interface VueCoureurInterface extends VueInterface<Coureur, String> {
+    void affLobj(List lobj);
 }

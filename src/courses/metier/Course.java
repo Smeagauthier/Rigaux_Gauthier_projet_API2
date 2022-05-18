@@ -12,7 +12,7 @@ public class Course {
     private int idCourse;
     private String nom;
     private LocalDate dateDebut, dateFin;
-    private double kmTotal;
+    private int kmTotal;
     private double priceMoney;
     private List<Etape> listeEtape = new ArrayList<>();
     private List<Classement> listeCla = new ArrayList<>();
@@ -20,7 +20,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(String nom, LocalDate dateDebut, LocalDate dateFin, double kmTotal, double priceMoney, List<Etape> listeEtape) {
+    public Course(String nom, LocalDate dateDebut, LocalDate dateFin, int kmTotal, double priceMoney, List<Etape> listeEtape) {
         this.idCourse = ++idCourseAct;
         this.nom = nom;
         this.dateDebut = dateDebut;
@@ -30,7 +30,15 @@ public class Course {
         this.listeEtape = listeEtape;
     }
 
-    public Course(int idCourse, String nom, LocalDate dateDebut, LocalDate dateFin, double kmTotal, double priceMoney) {
+    public Course(String nom, LocalDate dateDebut, LocalDate dateFin, int kmTotal, double priceMoney) {
+        this.nom = nom;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.kmTotal = kmTotal;
+        this.priceMoney = priceMoney;
+    }
+
+    public Course(int idCourse, String nom, LocalDate dateDebut, LocalDate dateFin, int kmTotal, double priceMoney) {
         this.idCourse = idCourse;
         this.nom = nom;
         this.dateDebut = dateDebut;
@@ -72,11 +80,11 @@ public class Course {
         this.dateFin = dateFin;
     }
 
-    public double getKmTotal() {
+    public int getKmTotal() {
         return kmTotal;
     }
 
-    public void setKmTotal(double kmTotal) {
+    public void setKmTotal(int kmTotal) {
         this.kmTotal = kmTotal;
     }
 

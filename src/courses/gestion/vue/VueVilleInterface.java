@@ -1,4 +1,6 @@
 package courses.gestion.vue;
 
-public interface VueVilleInterface {
+import courses.metier.Ville;
+
+public interface VueVilleInterface extends VueInterface<Ville, Integer>{
 }
