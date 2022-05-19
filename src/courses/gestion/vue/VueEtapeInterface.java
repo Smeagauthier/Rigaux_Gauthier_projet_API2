@@ -1,4 +1,7 @@
 package courses.gestion.vue;
 
-public interface VueEtapeInterface {
+import courses.metier.Etape;
+
+public interface VueEtapeInterface extends VueInterface<Etape, Integer>{
+
 }

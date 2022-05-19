@@ -2,6 +2,7 @@ package courses.gestion.vue;
 
 import courses.metier.Ville;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VueVille extends VueCommune implements VueVilleInterface {
@@ -30,17 +31,19 @@ public class VueVille extends VueCommune implements VueVilleInterface {
             String ch = getMsg("1. Changement de ville\n2. Fin");
             switch (ch) {
                 case "1":
-                    String nouvVille = getMsg("Nouvelle nationalité : ");
+
+                    String nouvVille = getMsg("Nouvelle ville : ");
                     ville.setNom(nouvVille);
 
-                    do{
+                    /*do{
                         Double nouvelleLat = Double.parseDouble(getMsg("Nouvelle latitude : "));
 
 
                     }while();
 
 
-                    break;
+                    break;*/
+
                 case "2":
                     return ville;
                 default:
@@ -57,10 +60,11 @@ public class VueVille extends VueCommune implements VueVilleInterface {
     }
 
     @Override
-    public void affAll(List<Ville> lobj) {
+    public void affAll(List<Ville> lvil) {
         int i = 0;
-        for(Ville v : lobj){
+        for(Ville v : lvil){
             displayMsg((++i)+") "+v.toString());
+
         }
     }
 }

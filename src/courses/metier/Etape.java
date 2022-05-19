@@ -16,6 +16,8 @@ public class Etape {
     private Ville villeArrivee;
 
 
+
+
     public Etape(int idEtape, int numero, String description, LocalDate dateEtape, int km, Course course, Ville villeDepart, Ville villeArrivee) {
         this.idEtape = idEtape;
         this.numero = numero;

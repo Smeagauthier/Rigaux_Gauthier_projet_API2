@@ -20,6 +20,10 @@ public class Course {
     public Course() {
     }
 
+    public Course(int idCourse) {
+        this.idCourse = idCourse;
+    }
+
     public Course(String nom, LocalDate dateDebut, LocalDate dateFin, int kmTotal, double priceMoney, List<Etape> listeEtape) {
         this.idCourse = ++idCourseAct;
         this.nom = nom;

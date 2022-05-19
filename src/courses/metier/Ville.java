@@ -14,6 +14,10 @@ public class Ville {
     public Ville() {
     }
 
+    public Ville(String nom) {
+        this.nom = nom;
+    }
+
     public Ville(int idVille, String nom, String pays, double latitude, double longitude) {
         this.idVille = idVille;
         this.nom = nom;
