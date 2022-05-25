@@ -18,7 +18,7 @@ public class PresenterVille {
     public void gestion() {
 
         do {
-            int ch = vuev.menu(new String[]{"ajout", "recherche", "modification", "voir tous", "fin"});
+            int ch = vuev.menu(new String[]{"ajout", "recherche", "modification", "voir tout", "fin"});
             switch (ch) {
                 case 1:
                     ajout();

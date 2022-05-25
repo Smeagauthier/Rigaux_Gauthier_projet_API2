@@ -79,4 +79,12 @@ public class VueCourse extends VueCommune implements VueCourseInterface {
             displayMsg((++i)+") "+co.toString());
         }
     }
+
+    @Override
+    public void affLobj(List lobj) {
+        int i = 0;
+        for (Object o : lobj) {
+            displayMsg((++i) + ") " + o.toString());
+        }
+    }
 }

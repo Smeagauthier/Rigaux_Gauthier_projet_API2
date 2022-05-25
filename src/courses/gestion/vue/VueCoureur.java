@@ -59,11 +59,4 @@ public class VueCoureur extends VueCommune implements VueCoureurInterface {
         }
     }
 
-    @Override
-    public void affLobj(List lobj) {
-        int i = 0;
-        for (Object o : lobj) {
-            displayMsg((++i) + ") " + o.toString());
-        }
-    }
 }

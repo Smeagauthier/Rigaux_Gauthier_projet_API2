@@ -84,11 +84,4 @@ public class VueCoureurGraph extends VueCommuneGraph implements VueCoureurInterf
         displayMsg(sb.toString());
     }
 
-    @Override
-    public void affLobj(List lobj) {
-        int i = 0;
-        for (Object o : lobj) {
-            displayMsg((++i) + ") " + o.toString());
-        }
-    }
 }

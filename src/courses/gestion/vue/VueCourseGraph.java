@@ -114,4 +114,12 @@ public class VueCourseGraph extends VueCommuneGraph implements VueCourseInterfac
         for(Course cou : lcour) sb.append((++i)+") "+cou+"\n");
         displayMsg(sb.toString());
     }
+
+    @Override
+    public void affLobj(List lobj) {
+        int i = 0;
+        for (Object o : lobj) {
+            displayMsg((++i) + ") " + o.toString());
+        }
+    }
 }

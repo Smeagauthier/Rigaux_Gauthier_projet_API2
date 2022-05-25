@@ -17,7 +17,7 @@ public class PresenterCoureur {
     public void gestion() {
 
         do {
-            int ch = vuec.menu(new String[]{"ajout", "recherche", "modification", "voir tous", "fin"});
+            int ch = vuec.menu(new String[]{"ajout", "recherche", "modification", "voir tout", "fin"});
             switch (ch) {
                 case 1:
                     ajout();
