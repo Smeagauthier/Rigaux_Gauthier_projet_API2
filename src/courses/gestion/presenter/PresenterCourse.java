@@ -75,11 +75,14 @@ public class PresenterCourse {
                 List l = null;
                 int ch = vuec.menu(new String[]{"liste des coureurs-place-gain", "gain total", "ajout coureur", "suppression coureur", "résultat", "modification", "ajout d'une étape", "suppression d'une étape", "classement complet", "fin"});
                 switch (ch) {
-                    case 1: l = co.listeCoureursPlaceGain();
+                    case 1:
+                        l = co.listeCoureursPlaceGain();
                         break;
-                    case 2: dou = co.gainTotal();
+                    case 2:
+                        dou = co.gainTotal();
                         break;
-                    case 3: boolean flag = co.addCoureur(vueco.create());
+                    case 3:
+                        boolean flag = co.addCoureur(vueco.create());
                         break;
                     case 4: //l = co.suppCoureur();
                         break;

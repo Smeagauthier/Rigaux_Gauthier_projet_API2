@@ -1,5 +1,11 @@
 package courses.gestion;
 
+import courses.gestion.modele.*;
+import courses.gestion.presenter.PresenterCoureur;
+import courses.gestion.presenter.PresenterCourse;
+import courses.gestion.presenter.PresenterEtape;
+import courses.gestion.presenter.PresenterVille;
+import courses.gestion.vue.*;
 import courses.metier.Coureur;
 import myconnections.DBConnection;
 
@@ -12,25 +18,84 @@ public class Gestion {
     private Scanner sc = new Scanner(System.in);
     private Connection dbConnect;
 
-    public void gestion() {
+    private PresenterCoureur pcoureur;
+    private PresenterCourse pcourse;
+    private PresenterVille pv;
+    private PresenterEtape pe;
+
+    public void gestion(String modeVue, String modeData) {
+
         dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
             System.exit(1);
         }
+
+        VueCoureurInterface vuecour;
+        VueCourseInterface vuecourse;
+        VueVilleInterface vuev;
+        VueEtapeInterface vuee;
+        VueCommuneInterface vcm;
+
+        DAOCoureur mdcoureur;
+        DAOCourse mdcourse;
+        DAOVille mdv;
+        DAOEtape mde;
+
+        if (modeVue.equals("console")) {
+            vuecour = new VueCoureur();
+            vuecourse = new VueCourse();
+            vuev = new VueVille();
+            vuee = new VueEtape();
+            vcm = new VueCommune();
+        } else {
+            vuecour = new VueCoureurGraph();
+            vuecourse = new VueCourseGraph();
+            vuev = new VueVilleGraph();
+            vuee = new VueEtapeGraph();
+            vcm = new VueCommuneGraph();
+        }
+
+        if (modeData.equals("db")) {
+            mdcoureur = new ModeleCoureurDB();
+            mdcourse = new ModeleCourseDB();
+            mdv = new ModeleVilleDB();
+            mde = new ModeleEtapeDB();
+        } else {
+            mdcoureur = new ModeleCoureur();
+            mdcourse = new ModeleCourse();
+            mdv = new ModeleVille();
+            mde = new ModeleEtape();
+        }
+
+        pcoureur = new PresenterCoureur(mdcoureur, vuecour);
+        pcourse = new PresenterCourse(mdcourse, vuecourse);
+        pv = new PresenterVille(mdv, vuev);
+        pe = new PresenterEtape(mde, vuee);
+
+
         System.out.println("      ---- Connexion établie ----");
         System.out.println("         --- Menu Principal ---");
         System.out.println("\n");
 
+
         do {
-            System.out.println("1. Menu des coureurs\n2. Fin");
-            System.out.print("choix : ");
-            int ch = sc.nextInt();
+            int ch = vcm.menu(new String[]{"1. Coureur", "\n2. Course", "\n3. Ville", "\n4. Etape", "\n5. Fin"});
+
             sc.skip("\n");
             switch (ch) {
                 case 1:
-                    menuCoureur();
+                    pcoureur.gestion();
                     break;
                 case 2:
+                    pcourse.gestion();
+                    break;
+                case 3:
+                    pv.gestion();
+                    break;
+                case 4:
+                    pe.gestion();
+                    break;
+                case 5:
                     System.exit(0);
                     break;
                 default:
@@ -40,8 +105,15 @@ public class Gestion {
 
     }
 
+    public static void main(String[] args) {
+        String modeVue = args[0];
+        String modeData = args[1];
+        Gestion g = new Gestion();
+        g.gestion(modeVue, modeData);
+    }
 
-    public void menuCoureur() {
+
+    /*public void menuCoureur() {
         System.out.println("\n       **** Gestion des coureurs ****");
         do {
             System.out.println("\n      ***** Menu Principal *****");
@@ -74,7 +146,7 @@ public class Gestion {
         } while (true);
     }
 
-    public void ajout() {
+        public void ajout() {
         System.out.print("Matricule : ");
         String MATRICULE = sc.nextLine();
         System.out.print("Nom :");
@@ -196,11 +268,6 @@ public class Gestion {
         }
         System.out.println();
 
-    }
-
-    public static void main(String[] args) {
-        Gestion g = new Gestion();
-        g.gestion();
-    }
+    } */
 
 }

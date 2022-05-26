@@ -4,10 +4,8 @@ import courses.metier.Coureur;
 import myconnections.DBConnection;
 
 import java.sql.*;
-import java.time.LocalDate;
 
-import oracle.jdbc.proxy.annotation.Pre;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModeleCoureurDB implements DAOCoureur {
@@ -53,7 +51,6 @@ public class ModeleCoureurDB implements DAOCoureur {
 
     @Override
     public boolean delete(Coureur cour) {
-
         String req = "delete from APICOUREUR where IDCOUREUR =?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
             pstm.setInt(1, cour.getIdCoureur());
@@ -63,40 +60,70 @@ public class ModeleCoureurDB implements DAOCoureur {
         } catch (Exception e) {
             return false;
         }
-
     }
 
     @Override
     public Coureur read(Coureur courRech) {
-        /*String req = "select * from APIVUE1_PILOTES_PLACE_GAIN where NOM=? and PRENOM=?";
+        String req = "select * from APICOUREUR where MATRICULE=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setString(1, courRech.getNom());
-            pstm.setString(2, courRech.getPrenom());
+            pstm.setString(1, courRech.getMatricule());
             ResultSet rs = pstm.executeQuery();
 
-            if(rs.next()){
+            if (rs.next()) {
+                String nom = rs.getString("NOM");
+                String prenom = rs.getString("PRENOM");
+                Date datenaiss = rs.getDate("DATENAISS");
                 String nationalite = rs.getString("NATIONALITE");
-                int place = rs.getInt("PLACE");
-                double gain = rs.getDouble("GAIN");
-
-                Coureur co = new Coureur(courRech.getNom(), courRech.getPrenom(), nationalite);
-
+                Coureur co = new Coureur(courRech.getIdCoureur(), courRech.getMatricule(), nom, prenom, nationalite, datenaiss.toLocalDate());
+                return co;
+            } else {
+                return null;
             }
         } catch (Exception e) {
-         return null;
-        }*/
-        return null;
+            return null;
+        }
     }
 
     @Override
     public Coureur update(Coureur cour) {
+        String req = "update APICOUREUR set nom=?, prenom=?, datenaiss=?, nationalite=? where matricule =?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
-        String req = "update APICOUREUR set ";
-        return null;
+            pstm.setString(5, cour.getMatricule());
+            pstm.setString(1, cour.getNom());
+            pstm.setString(2, cour.getPrenom());
+            pstm.setDate(3, Date.valueOf(cour.getDateNaiss()));
+            pstm.setString(4, cour.getNationalite());
+            int n = pstm.executeUpdate();
+            if (n == 0) {
+                throw new Exception("Aucun client n'a été mis à jour");
+            }
+            return read(cour);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
     public List<Coureur> readAll() {
-        return null;
+        String req = "select * from APICOUREUR";
+        List<Coureur> lcour = new ArrayList<>();
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
+            while (rs.next()) {
+                int idCour = rs.getInt("IDCOUREUR");
+                String matricule = rs.getString("MATRICULE");
+                String nom = rs.getString("NOM");
+                String prenom = rs.getString("PRENOM");
+                Date dateNaiss = rs.getDate("DATENAISS");
+                String nationalite = rs.getString("NATIONALITE");
+                lcour.add(new Coureur(idCour, matricule, nom, prenom, nationalite, dateNaiss.toLocalDate()));
+            }
+            if (lcour.isEmpty()) {
+                return null;
+            }
+            return lcour;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

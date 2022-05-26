@@ -6,10 +6,13 @@ import myconnections.DBConnection;
 import java.sql.Connection;
 import java.util.List;
 
-public class ModeleVilleDB implements DAOVille{
+public class ModeleVilleDB implements DAOVille {
 
     protected Connection dbConnect;
-    public ModeleVilleDB(){ dbConnect = DBConnection.getConnection(); }
+
+    public ModeleVilleDB() {
+        dbConnect = DBConnection.getConnection();
+    }
 
     @Override
     public Ville create(Ville newObj) {
@@ -35,4 +38,6 @@ public class ModeleVilleDB implements DAOVille{
     public List<Ville> readAll() {
         return null;
     }
+
+
 }
