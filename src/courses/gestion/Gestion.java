@@ -76,9 +76,9 @@ public class Gestion {
         pcourse.setPv(pv);
 
         System.out.println("      ---- Connexion établie ----");
-        System.out.println("         --- Menu Principal ---");
 
         do {
+            System.out.println("         --- Menu Principal ---\n");
             int ch = vcm.menu(new String[]{" Coureur", " Course", " Ville", " Etape", " Fin"});
             switch (ch) {
                 case 1:

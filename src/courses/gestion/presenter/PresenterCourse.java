@@ -36,9 +36,10 @@ public class PresenterCourse {
 
 
     public void gestion() {
+        System.out.println("\n       **** Gestion des coureurs ****");
 
         do {
-            int ch = vuec.menu(new String[]{"ajout", "recherche", "modification", "voir tout", "détail des courses", "fin"});
+            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification", " Voir tout", " Détail des courses", " Fin"});
             switch (ch) {
                 case 1:
                     ajout();
@@ -73,7 +74,7 @@ public class PresenterCourse {
         if (co != null) {
             do {
                 List l = null;
-                int ch = vuec.menu(new String[]{"liste des coureurs-place-gain", "gain total", "ajout coureur", "suppression coureur", "résultat", "modification", "ajout d'une étape", "suppression d'une étape", "classement complet", "fin"});
+                int ch = vuec.menu(new String[]{"liste des coureurs-place-gain", "gain total", "ajout coureur", "suppression coureur", "résultat", "modification", "ajout d'une étape", "suppression d'une étape", "classement complet", "retour"});
                 switch (ch) {
                     case 1:
                         l = co.listeCoureursPlaceGain();

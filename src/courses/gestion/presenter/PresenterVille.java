@@ -20,7 +20,7 @@ public class PresenterVille {
 
         do {
             System.out.println("\n");
-            int ch = vuev.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Fin"});
+            int ch = vuev.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Retour"});
             switch (ch) {
                 case 1:
                     ajout();

@@ -19,7 +19,7 @@ public class PresenterEtape {
         System.out.println("\n       **** Gestion des étapes ****");
 
         do {
-            int ch = vuee.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Fin"});
+            int ch = vuee.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Retour"});
             switch (ch) {
                 case 1:
                     ajout();

@@ -19,7 +19,7 @@ public class PresenterCoureur {
 
         do {
             System.out.println("\n");
-            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Fin"});
+            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Retour"});
             switch (ch) {
                 case 1:
                     ajout();

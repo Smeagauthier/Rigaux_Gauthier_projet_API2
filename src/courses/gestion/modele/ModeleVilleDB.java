@@ -41,6 +41,7 @@ public class ModeleVilleDB implements DAOVille {
                 throw new Exception("aucune ville de trouvée");
             }
         } catch (Exception e) {
+            System.out.println(e);
             return null;
         }
     }
@@ -98,7 +99,7 @@ public class ModeleVilleDB implements DAOVille {
 
     @Override
     public List<Ville> readAll() {
-        String req = "select * from APIVILLE";
+        String req = "select * from APIVILLE order by IDVILLE";
         List<Ville> lvil = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {

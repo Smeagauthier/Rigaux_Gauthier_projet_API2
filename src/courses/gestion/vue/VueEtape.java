@@ -16,10 +16,6 @@ public class VueEtape extends VueCommune implements VueEtapeInterface {
         Integer num = Integer.parseInt(getMsg("Numéro de l'étape : "));
         String desc = getMsg("Description : ");
         LocalDate dateEtape = readDate("Date de l'étape: ");
-        /*Integer jour = Integer.parseInt(getMsg("Jour de l'étape : "));
-        Integer mois = Integer.parseInt(getMsg("Mois de l'étape : "));
-        Integer ann = Integer.parseInt(getMsg("Année de l'étape : "));
-        LocalDate dateEtape = LocalDate.of(jour, mois, ann);*/
         Integer km = Integer.parseInt(getMsg("Kilomètres : "));
         Integer idcourse = Integer.parseInt(getMsg("Id de la course : "));
         Course co = new Course(idcourse);
@@ -29,7 +25,7 @@ public class VueEtape extends VueCommune implements VueEtapeInterface {
         Ville villeA = new Ville(villeArr);
 
         Etape newEtape = new Etape(num, desc, dateEtape, km, co, villeD, villeA);
-        return null;
+        return newEtape;
     }
 
     @Override
@@ -40,13 +36,10 @@ public class VueEtape extends VueCommune implements VueEtapeInterface {
     @Override
     public Etape update(Etape et) {
         do {
-            String ch = getMsg("1. Changement date de l'étape\n2. fin");
+            String ch = getMsg("\n1. Changement date de l'étape\n2. retour");
             switch (ch) {
                 case "1":
-                    Integer nouvjour = Integer.parseInt(getMsg("Nouveau jour de l'étape : "));
-                    Integer nouvmois = Integer.parseInt(getMsg("Nouveau mois de l'étape: "));
-                    Integer nouvannee = Integer.parseInt(getMsg("Nouvelle année de l'étape : "));
-                    LocalDate nouvDateEtape = LocalDate.of(nouvjour, nouvmois, nouvannee);
+                    LocalDate nouvDateEtape = readDate("Nouvelle date de l'étape : ");
                     et.setDateEtape(nouvDateEtape);
                     break;
                 case "2":
@@ -60,14 +53,14 @@ public class VueEtape extends VueCommune implements VueEtapeInterface {
     @Override
     public Integer read() {
         String num = getMsg("Numéro de l'étape : ");
-        int nume = Integer.parseInt(num);
-        return nume;
+        int numet = Integer.parseInt(num);
+        return numet;
     }
 
     @Override
-    public void affAll(List<Etape> let) {
+    public void affAll(List<Etape> letape) {
         int i = 0;
-        for(Etape et : let){
+        for(Etape et : letape){
             displayMsg((++i)+") "+et.toString());
         }
     }

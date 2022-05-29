@@ -15,8 +15,8 @@ public class VueVille extends VueCommune implements VueVilleInterface {
         Double latitude = Double.parseDouble(getMsg("Latitude : "));
         Double longitude = Double.parseDouble(getMsg("Longitude : "));
 
-        Ville newVille = new Ville(nomville, pays, latitude, longitude);
-        return newVille;
+        Ville newVi = new Ville(nomville, pays, latitude, longitude);
+        return newVi;
     }
 
     @Override
@@ -28,13 +28,12 @@ public class VueVille extends VueCommune implements VueVilleInterface {
     public Ville update(Ville ville) {
 
         do {
-            String ch = getMsg("1. Changement de ville\n2. Fin");
+            String ch = getMsg("\n1. Changement de ville\n2. Fin");
             switch (ch) {
                 case "1":
                     String nouvVille = getMsg("Nouvelle ville : ");
                     ville.setNom(nouvVille);
                     break;
-
                 case "2":
                     return ville;
                 default:

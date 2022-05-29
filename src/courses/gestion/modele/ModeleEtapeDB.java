@@ -24,7 +24,7 @@ public class ModeleEtapeDB implements DAOEtape {
     @Override
     public Etape create(Etape etape) {
         String req1 = "insert into APIETAPE(numero, description, dateetape, km, idcourse, idville, idville_1) values (?,?,?,?,?,?,?)";
-        String req2 = "select idetape from APIETAPE where numero = ?";
+        String req2 = "select IDETAPE from APIETAPE where NUMERO=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(req1); PreparedStatement pstm2 = dbConnect.prepareStatement(req2)) {
             pstm1.setInt(1, etape.getNumero());
             pstm1.setString(2, etape.getDescription());
@@ -49,6 +49,7 @@ public class ModeleEtapeDB implements DAOEtape {
                 throw new Exception("aucune étape de trouvée");
             }
         } catch (Exception e) {
+            System.out.println("voici l'erreur : "+e);
             return null;
         }
     }
@@ -112,20 +113,26 @@ public class ModeleEtapeDB implements DAOEtape {
 
     @Override
     public List<Etape> readAll() {
-        String req = "select * from APIETAPE";
+        String req = "select * from APIETAPE order by IDETAPE";
         List<Etape> letape = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {
                 int idetape = rs.getInt("IDETAPE");
                 int numero = rs.getInt("NUMERO");
                 String description = rs.getString("DESCRIPTION");
-                Date dateetape = rs.getDate("DATEETAPE");
+                Date dateEt = rs.getDate("DATEETAPE");
                 int km = rs.getInt("KM");
                 int idcourse = rs.getInt("IDCOURSE");
+                Course idc = new Course(idcourse);
                 String idville = rs.getString("IDVILLE");
+                Ville villeDep = new Ville(idville);
                 String idville_1 = rs.getString("IDVILLE_1");
+                Ville villeArr = new Ville(idville_1);
+                letape.add(new Etape(idetape, numero, description, dateEt.toLocalDate(), km, idc, villeDep, villeArr));
             }
-            if (letape.isEmpty()) return null;
+            if (letape.isEmpty()) {
+                return null;
+            }
             return letape;
         } catch (Exception e) {
             return null;

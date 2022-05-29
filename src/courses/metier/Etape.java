@@ -136,6 +136,6 @@ public class Etape {
 
     @Override
     public String toString() {
-        return "ID : " + idEtape + "\t Numéro de l'étape : " + numero + "\t Description : " + description + "\t Date de l'étape : " + dateEtape + "\t Kilométrage : " + km + "\t Course : " + course + "\t Ville de départ : " + villeDepart + "\t Ville d'arrivée : " + villeArrivee ;
+        return "ID : " + idEtape + "\t Numéro de l'étape : " + numero + "\t Description : " + description + "\t\n Date de l'étape : " + dateEtape + "\t Kilométrage : " + km + "\t Course : " + course.getIdCourse() + "\t Ville de départ : " + villeDepart.getNom() + "\t Ville d'arrivée : " + villeArrivee.getNom() ;
     }
 }
