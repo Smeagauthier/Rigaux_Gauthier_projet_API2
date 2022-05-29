@@ -40,17 +40,19 @@ public class VueCourse extends VueCommune implements VueCourseInterface {
             String ch = getMsg("1. Changement date début\n2. Changement date de fin\n3. Changement de cash price\n4. fin");
             switch (ch) {
                 case "1":
-                    Integer nouvjourdebut = Integer.parseInt(getMsg("Nouveau jour de début : "));
+                    /*Integer nouvjourdebut = Integer.parseInt(getMsg("Nouveau jour de début : "));
                     Integer nouvmoisdebut = Integer.parseInt(getMsg("Nouveau mois de début: "));
                     Integer nouvanneedebut = Integer.parseInt(getMsg("Nouvelle année de début : "));
-                    LocalDate nouvDateDebut = LocalDate.of(nouvjourdebut, nouvmoisdebut, nouvanneedebut);
+                    LocalDate nouvDateDebut = LocalDate.of(nouvjourdebut, nouvmoisdebut, nouvanneedebut);*/
+                    LocalDate nouvDateDebut = readDate("Nouvelle date de début: ");
                     cour.setDateDebut(nouvDateDebut);
                     break;
                 case "2":
-                    Integer nouvjourfin = Integer.parseInt(getMsg("Nouveau jour de fin: "));
+                    /*Integer nouvjourfin = Integer.parseInt(getMsg("Nouveau jour de fin: "));
                     Integer nouvmoisfin = Integer.parseInt(getMsg("Nouveau mois de fin: "));
                     Integer nouvanneefin = Integer.parseInt(getMsg("Nouvelle année de fin : "));
-                    LocalDate nouvDateFin = LocalDate.of(nouvjourfin, nouvmoisfin, nouvanneefin);
+                    LocalDate nouvDateFin = LocalDate.of(nouvjourfin, nouvmoisfin, nouvanneefin);*/
+                    LocalDate nouvDateFin = readDate("Nouvelle date de fin: ");
                     cour.setDateDebut(nouvDateFin);
                     break;
                 case "3":

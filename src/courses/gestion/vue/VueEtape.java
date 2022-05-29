@@ -15,10 +15,11 @@ public class VueEtape extends VueCommune implements VueEtapeInterface {
 
         Integer num = Integer.parseInt(getMsg("Numéro de l'étape : "));
         String desc = getMsg("Description : ");
-        Integer jour = Integer.parseInt(getMsg("Jour de l'étape : "));
+        LocalDate dateEtape = readDate("Date de l'étape: ");
+        /*Integer jour = Integer.parseInt(getMsg("Jour de l'étape : "));
         Integer mois = Integer.parseInt(getMsg("Mois de l'étape : "));
         Integer ann = Integer.parseInt(getMsg("Année de l'étape : "));
-        LocalDate dateEtape = LocalDate.of(jour, mois, ann);
+        LocalDate dateEtape = LocalDate.of(jour, mois, ann);*/
         Integer km = Integer.parseInt(getMsg("Kilomètres : "));
         Integer idcourse = Integer.parseInt(getMsg("Id de la course : "));
         Course co = new Course(idcourse);

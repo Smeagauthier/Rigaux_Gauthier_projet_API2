@@ -19,7 +19,7 @@ public class ModeleCoureurDB implements DAOCoureur {
     @Override
     public Coureur create(Coureur newCour) {
         String req1 = "insert into APICOUREUR(MATRICULE, NOM, PRENOM, DATENAISS, NATIONALITE) values (?,?,?,?,?)";
-        String req2 = "select IDCLIENT from APICLIENT where matricule =? and nom=? and prenom =? ";
+        String req2 = "select IDCOUREUR from APICLIENT where MATRICULE=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(req1); PreparedStatement pstm2 = dbConnect.prepareStatement(req2)) {
             pstm1.setString(1, newCour.getMatricule());
             pstm1.setString(2, newCour.getNom());
@@ -27,17 +27,14 @@ public class ModeleCoureurDB implements DAOCoureur {
             pstm1.setDate(4, Date.valueOf(newCour.getDateNaiss()));
             pstm1.setString(5, newCour.getNationalite());
             int n = pstm1.executeUpdate();
-
             if (n == 0) {
                 return null;
             }
             pstm2.setString(1, newCour.getMatricule());
-            pstm2.setString(2, newCour.getNom());
-            pstm2.setString(3, newCour.getPrenom());
             ResultSet rs = pstm2.executeQuery();
             if (rs.next()) {
-                int idclient = rs.getInt(1);
-                newCour.setIdCoureur(idclient);
+                int idcour = rs.getInt(1);
+                newCour.setIdCoureur(idcour);
                 return newCour;
             } else {
                 throw new Exception("Aucun coureur n'a été trouvé");
@@ -51,9 +48,9 @@ public class ModeleCoureurDB implements DAOCoureur {
 
     @Override
     public boolean delete(Coureur cour) {
-        String req = "delete from APICOUREUR where IDCOUREUR =?";
+        String req = "delete from APICOUREUR where MATRICULE =?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setInt(1, cour.getIdCoureur());
+            pstm.setString(1, cour.getMatricule());
             int n = pstm.executeUpdate();
             if (n == 0) return false;
             else return true;
@@ -96,7 +93,7 @@ public class ModeleCoureurDB implements DAOCoureur {
             pstm.setString(4, cour.getNationalite());
             int n = pstm.executeUpdate();
             if (n == 0) {
-                throw new Exception("Aucun client n'a été mis à jour");
+                throw new Exception("Aucun coureur n'a été mis à jour");
             }
             return read(cour);
         } catch (Exception e) {

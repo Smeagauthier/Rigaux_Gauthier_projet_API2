@@ -2,10 +2,14 @@ package courses.gestion.vue;
 
 import courses.metier.Coureur;
 
+import java.io.BufferedInputStream;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 public class VueCoureur extends VueCommune implements VueCoureurInterface {
+
+    private static Scanner sc = new Scanner(System.in);
 
     @Override
     public Coureur create() {
@@ -13,10 +17,7 @@ public class VueCoureur extends VueCommune implements VueCoureurInterface {
         String nom = getMsg("Nom : ");
         String prenom = getMsg("Prénom : ");
         String nationalite = getMsg("Nationalité : ");
-        Integer jourNaiss = Integer.parseInt(getMsg("Jour de naissance : "));
-        Integer moisNaiss = Integer.parseInt(getMsg("Mois de naissance : "));
-        Integer annNaiss = Integer.parseInt(getMsg("Année de naissance : "));
-        LocalDate dateNaiss = LocalDate.of(jourNaiss, moisNaiss, annNaiss);
+        LocalDate dateNaiss = readDate("Date de naissance: ");
 
         Coureur newCour = new Coureur(matricule, nom, prenom, nationalite, dateNaiss);
 
@@ -31,12 +32,14 @@ public class VueCoureur extends VueCommune implements VueCoureurInterface {
     @Override
     public Coureur update(Coureur cour) {
         do {
-            String ch = getMsg("1. Changement de nationalité\n2. Fin");
+            sc.skip("\n");
+            String ch = getMsg("1. Changement de nationalité \n2. Fin");
             switch (ch) {
                 case "1":
                     String nnat = getMsg("Nouvelle nationalité : ");
                     cour.setNationalite(nnat);
                     break;
+
                 case "2":
                     return cour;
                 default:
@@ -47,7 +50,7 @@ public class VueCoureur extends VueCommune implements VueCoureurInterface {
 
     @Override
     public String read() {
-        String mat = getMsg("Matricule du client : ");
+        String mat = getMsg("Matricule du coureur : ");
         return mat;
     }
 

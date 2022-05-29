@@ -25,10 +25,10 @@ public class Gestion {
 
     public void gestion(String modeVue, String modeData) {
 
-        dbConnect = DBConnection.getConnection();
+       /* dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
             System.exit(1);
-        }
+        } */
 
         VueCoureurInterface vuecour;
         VueCourseInterface vuecourse;
@@ -72,16 +72,14 @@ public class Gestion {
         pv = new PresenterVille(mdv, vuev);
         pe = new PresenterEtape(mde, vuee);
 
+        pcourse.setPc(pcoureur);
+        pcourse.setPv(pv);
 
         System.out.println("      ---- Connexion établie ----");
         System.out.println("         --- Menu Principal ---");
-        System.out.println("\n");
-
 
         do {
-            int ch = vcm.menu(new String[]{"1. Coureur", "\n2. Course", "\n3. Ville", "\n4. Etape", "\n5. Fin"});
-
-            sc.skip("\n");
+            int ch = vcm.menu(new String[]{" Coureur", " Course", " Ville", " Etape", " Fin"});
             switch (ch) {
                 case 1:
                     pcoureur.gestion();
@@ -111,7 +109,6 @@ public class Gestion {
         Gestion g = new Gestion();
         g.gestion(modeVue, modeData);
     }
-
 
     /*public void menuCoureur() {
         System.out.println("\n       **** Gestion des coureurs ****");

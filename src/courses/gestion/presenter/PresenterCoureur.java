@@ -15,9 +15,11 @@ public class PresenterCoureur {
     }
 
     public void gestion() {
+        System.out.println("\n       **** Gestion des coureurs ****");
 
         do {
-            int ch = vuec.menu(new String[]{"ajout", "recherche", "modification", "voir tout", "fin"});
+            System.out.println("\n");
+            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Fin"});
             switch (ch) {
                 case 1:
                     ajout();
@@ -79,7 +81,7 @@ public class PresenterCoureur {
         if (cour != null) {
             String rep;
             do {
-                rep = vuec.getMsg("confirmez-vous la suppression (o/n) ? ");
+                rep = vuec.getMsg("Confirmez-vous la suppression (o/n) ? ");
 
             } while (!rep.equalsIgnoreCase("o") && !rep.equalsIgnoreCase("n"));
 

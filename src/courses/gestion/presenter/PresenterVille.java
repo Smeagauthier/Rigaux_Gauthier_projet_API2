@@ -16,9 +16,11 @@ public class PresenterVille {
     }
 
     public void gestion() {
+        System.out.println("\n       **** Gestion des villes ****");
 
         do {
-            int ch = vuev.menu(new String[]{"ajout", "recherche", "modification", "voir tout", "fin"});
+            System.out.println("\n");
+            int ch = vuev.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Fin"});
             switch (ch) {
                 case 1:
                     ajout();
@@ -37,7 +39,6 @@ public class PresenterVille {
                     break;
                 case 6:
                     return;
-
             }
         } while (true);
     }
@@ -94,7 +95,5 @@ public class PresenterVille {
     protected void affAll() {
         vuev.affAll(mdv.readAll());
     }
-
-
 
 }

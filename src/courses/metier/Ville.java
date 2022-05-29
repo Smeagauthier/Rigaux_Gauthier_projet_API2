@@ -89,12 +89,6 @@ public class Ville {
 
     @Override
     public String toString() {
-        return "Ville{" +
-                "idVille=" + idVille +
-                ", nom='" + nom + '\'' +
-                ", pays='" + pays + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                '}';
+        return "ID : " + idVille + "\t Nom : " + nom + " (" + pays + ") " + "\t Latitude : " + latitude + "\t Longitude : " + longitude ;
     }
 }
