@@ -53,7 +53,7 @@ public class ModeleCourseDB implements DAOCourse {
     public boolean delete(Course courseRech) {
         String req = "delete from APICOURSE where IDCOURSE=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setString(1, courseRech.getNom());
+            pstm.setInt(1, courseRech.getIdCourse());
             int n = pstm.executeUpdate();
             if (n == 0) return false;
             else return true;
@@ -64,9 +64,9 @@ public class ModeleCourseDB implements DAOCourse {
 
     @Override
     public Course read(Course courseRech) {
-        String req = "select * from APICOURSE where NOM=?";
+        String req = "select * from APICOURSE where IDCOURSE=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setString(1, courseRech.getNom());
+            pstm.setInt(1, courseRech.getIdCourse());
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
                 String nom = rs.getString("NOM");

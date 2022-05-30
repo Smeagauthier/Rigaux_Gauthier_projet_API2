@@ -11,14 +11,8 @@ public class VueCourse extends VueCommune implements VueCourseInterface {
     @Override
     public Course create() {
         String nom = getMsg("Nom de la course : ");
-        Integer jourdebut = Integer.parseInt(getMsg("Jour de début : "));
-        Integer moisdebut = Integer.parseInt(getMsg("Mois de début : "));
-        Integer anndebut = Integer.parseInt(getMsg("Année de début : "));
-        LocalDate dateDebut = LocalDate.of(jourdebut, moisdebut, anndebut);
-        Integer jourfin = Integer.parseInt(getMsg("Jour de fin : "));
-        Integer moisfin = Integer.parseInt(getMsg("Mois de fin : "));
-        Integer annfin = Integer.parseInt(getMsg("Année de fin : "));
-        LocalDate dateFin = LocalDate.of(jourfin, moisfin, annfin);
+        LocalDate dateDebut = readDate("Date de début : ");
+        LocalDate dateFin = readDate("Date de fin : ");
         Integer kmtot = Integer.parseInt(getMsg("Kilomètres totaux : "));
         Double pricem = Double.parseDouble(getMsg("Price money : "));
 
@@ -37,19 +31,22 @@ public class VueCourse extends VueCommune implements VueCourseInterface {
     @Override
     public Course update(Course cour) {
         do {
-            String ch = getMsg("\n1. Changement date début\n2. Changement date de fin\n3. Changement de cash price\n4. fin");
+            String ch = getMsg("\n1. Changement date de début\n2. Changement date de fin\n3. Changement de cash price\n4. fin");
             switch (ch) {
                 case "1":
                     LocalDate nouvDateDebut = readDate("Nouvelle date de début: ");
                     cour.setDateDebut(nouvDateDebut);
+                    displayMsg("Date de début mise à jour");
                     break;
                 case "2":
                     LocalDate nouvDateFin = readDate("Nouvelle date de fin: ");
-                    cour.setDateDebut(nouvDateFin);
+                    cour.setDateFin(nouvDateFin);
+                    displayMsg("Date de fin mise à jour");
                     break;
                 case "3":
                     Double nouvpricemoney = Double.parseDouble(getMsg("Nouveau price money : "));
                     cour.setPriceMoney(nouvpricemoney);
+                    displayMsg("Prize money mis à jour");
                     break;
                 case "4":
                     return cour;
@@ -62,8 +59,8 @@ public class VueCourse extends VueCommune implements VueCourseInterface {
     @Override
     public Integer read() {
         String id = getMsg("Identifiant de la course : ");
-        int ident = Integer.parseInt(id);
-        return ident;
+        int num = Integer.parseInt(id);
+        return num;
     }
 
     @Override

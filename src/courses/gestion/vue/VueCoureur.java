@@ -32,14 +32,13 @@ public class VueCoureur extends VueCommune implements VueCoureurInterface {
     @Override
     public Coureur update(Coureur cour) {
         do {
-            sc.skip("\n");
             String ch = getMsg("1. Changement de nationalité \n2. Fin");
             switch (ch) {
                 case "1":
                     String nnat = getMsg("Nouvelle nationalité : ");
                     cour.setNationalite(nnat);
+                    displayMsg("La nationalité a été mise à jour");
                     break;
-
                 case "2":
                     return cour;
                 default:

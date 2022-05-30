@@ -230,6 +230,6 @@ public class Coureur {
      */
     @Override
     public String toString() {
-        return "ID : " + idCoureur + "\t Matricule : " + matricule + "\t Nom : " + nom + "\t Prénom : " + prenom + "\t Nationalité : " + nationalite + "\t\t Date de naissance : " + dateNaiss ;
+        return "Matricule : " + matricule + "\t Nom : " + nom + "\t Prénom : " + prenom + "\t Nationalité : " + nationalite + "\t\t Date de naissance : " + dateNaiss ;
     }
 }

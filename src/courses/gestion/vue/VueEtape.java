@@ -36,11 +36,12 @@ public class VueEtape extends VueCommune implements VueEtapeInterface {
     @Override
     public Etape update(Etape et) {
         do {
-            String ch = getMsg("\n1. Changement date de l'étape\n2. retour");
+            String ch = getMsg("1. Changement date de l'étape\n2. retour");
             switch (ch) {
                 case "1":
-                    LocalDate nouvDateEtape = readDate("Nouvelle date de l'étape : ");
-                    et.setDateEtape(nouvDateEtape);
+                    LocalDate nouvDate = readDate("Nouvelle date de l'étape: ");
+                    et.setDateEtape(nouvDate);
+                    displayMsg("Date de l'étape mise à jour");
                     break;
                 case "2":
                     return et;

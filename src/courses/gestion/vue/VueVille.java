@@ -33,6 +33,7 @@ public class VueVille extends VueCommune implements VueVilleInterface {
                 case "1":
                     String nouvVille = getMsg("Nouvelle ville : ");
                     ville.setNom(nouvVille);
+                    displayMsg("La ville a été mise à jour");
                     break;
                 case "2":
                     return ville;

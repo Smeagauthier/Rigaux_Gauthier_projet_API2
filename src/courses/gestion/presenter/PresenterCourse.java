@@ -5,6 +5,7 @@ import courses.gestion.vue.VueCoureurInterface;
 import courses.gestion.vue.VueCourseInterface;
 import courses.metier.Coureur;
 import courses.metier.Course;
+import courses.metier.Ville;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class PresenterCourse {
         System.out.println("\n       **** Gestion des coureurs ****");
 
         do {
-            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification", " Voir tout", " Détail des courses", " Fin"});
+            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Détail des courses", " Fin"});
             switch (ch) {
                 case 1:
                     ajout();
@@ -69,7 +70,6 @@ public class PresenterCourse {
 
         Course co = recherche();
         double dou = 0.0;
-        Coureur cour = new Coureur();
 
         if (co != null) {
             do {
@@ -77,13 +77,13 @@ public class PresenterCourse {
                 int ch = vuec.menu(new String[]{"liste des coureurs-place-gain", "gain total", "ajout coureur", "suppression coureur", "résultat", "modification", "ajout d'une étape", "suppression d'une étape", "classement complet", "retour"});
                 switch (ch) {
                     case 1:
-                        l = co.listeCoureursPlaceGain();
+                        l = co.listeCoureursPlaceGain(); 
                         break;
                     case 2:
                         dou = co.gainTotal();
                         break;
                     case 3:
-                        boolean flag = co.addCoureur(vueco.create());
+                        //boolean flag = co.addCoureur(vueco.create());
                         break;
                     case 4: //l = co.suppCoureur();
                         break;
@@ -165,6 +165,13 @@ public class PresenterCourse {
 
     protected void affAll() {
         vuec.affAll(mdc.readAll());
+    }
+
+    private void addCoureur(){
+
+        Coureur coureur = pc.recherche();
+        if(coureur == null) return;
+
     }
 
 }
