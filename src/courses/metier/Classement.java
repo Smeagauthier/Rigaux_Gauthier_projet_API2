@@ -59,10 +59,6 @@ public class Classement {
 
     @Override
     public String toString() {
-        return "Classement{" +
-                "coureur=" + coureur +
-                ", place=" + place +
-                ", gain=" + gain +
-                '}';
+        return "coureur=" + coureur + ", place=" + place + ", gain=" + gain ;
     }
 }

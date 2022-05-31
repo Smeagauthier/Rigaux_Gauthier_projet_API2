@@ -1,5 +1,7 @@
 package courses.gestion.modele;
 
+import courses.metier.Classement;
+import courses.metier.Coureur;
 import courses.metier.Course;
 import courses.metier.Ville;
 import myconnections.DBConnection;
@@ -141,10 +143,57 @@ public class ModeleCourseDB implements DAOCourse {
                 Double longitude = rs.getDouble("LONGITUDE");
                 lville.add(new Ville(idVille, nom, pays, latitude, longitude));
             }
+            if (lville.isEmpty()) {
+                return null;
+            }
             return lville;
 
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public List<Classement> listeCoureursPlaceGain(Course co) {
+        String req = "select * from PILOTE_COURSE where NOM_COURSE=?";
+        List<Classement> lcla = new ArrayList<>();
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            pstm.setString(1, co.getNom());
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    String nom = rs.getString("NOM");
+                    String prenom = rs.getString("PRENOM");
+                    Coureur idc = new Coureur(nom, prenom);
+                    int place = rs.getInt("PLACE");
+                    Double gain = rs.getDouble("GAIN");
+                    lcla.add(new Classement(idc, place, gain));
+                }
+                if (lcla.isEmpty()) {
+                    return null;
+                }
+            } catch (Exception e) {
+                System.out.println("l'erreur : " + e);
+            }
+            return lcla;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public double gainTotal(Course co) {
+        String req = "select * from GAIN_TOTAL_COURSE where NOM_COURSE=?";
+        double gainTot = 0.0;
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            pstm.setString(1, co.getNom());
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                Double gain = rs.getDouble("GAIN_TOTAL");
+                gainTot += gain;
+            }
+            return gainTot;
+        } catch (Exception e) {
+            return 0;
         }
     }
 }

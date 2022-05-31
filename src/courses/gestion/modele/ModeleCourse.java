@@ -1,6 +1,6 @@
 package courses.gestion.modele;
 
-import courses.metier.Coureur;
+import courses.metier.Classement;
 import courses.metier.Course;
 import courses.metier.Ville;
 
@@ -61,4 +61,15 @@ public class ModeleCourse implements DAOCourse {
     public List<Ville> listeVilles(Ville villeRech) {
         return null;
     }
+
+    @Override
+    public List<Classement> listeCoureursPlaceGain(Course co) {
+        return null;
+    }
+
+    @Override
+    public double gainTotal(Course co) {
+        return 0;
+    }
+
 }

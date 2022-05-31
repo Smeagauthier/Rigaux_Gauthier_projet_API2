@@ -142,6 +142,7 @@ public class Course {
         for (Classement c : listeCla) {
             listeCourPlGain.add(new Classement(c.getCoureur(), c.getPlace(), c.getGain()));
         }
+
         return listeCourPlGain;
     }
 

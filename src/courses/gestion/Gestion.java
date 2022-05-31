@@ -78,7 +78,7 @@ public class Gestion {
         System.out.println("      ---- Connexion établie ----");
 
         do {
-            System.out.println("         --- Menu Principal ---\n");
+            System.out.println("         --- Menu Principal ---");
             int ch = vcm.menu(new String[]{" Coureur", " Course", " Ville", " Etape", " Fin"});
             switch (ch) {
                 case 1:

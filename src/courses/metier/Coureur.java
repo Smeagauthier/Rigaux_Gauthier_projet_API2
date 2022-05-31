@@ -55,6 +55,16 @@ public class Coureur {
     }
 
     /**
+     *
+     * @param nom
+     * @param prenom
+     */
+    public Coureur(String nom, String prenom) {
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
+    /**
      * Constructeur paramétré
      *
      * @param idCoureur   identifiant unique du coureur affecté par la base de données

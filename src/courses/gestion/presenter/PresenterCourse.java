@@ -1,22 +1,26 @@
 package courses.gestion.presenter;
 
+import courses.gestion.modele.DAOCoureur;
 import courses.gestion.modele.DAOCourse;
 import courses.gestion.vue.VueCoureurInterface;
 import courses.gestion.vue.VueCourseInterface;
+import courses.metier.Classement;
 import courses.metier.Coureur;
 import courses.metier.Course;
-import courses.metier.Ville;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 public class PresenterCourse {
 
+    private DAOCoureur mdcoureur;
     private DAOCourse mdc;
     private VueCourseInterface vuec;
     private PresenterCoureur pc;
     private PresenterVille pv;
     private PresenterEtape pe;
     private VueCoureurInterface vueco;
+
 
     public PresenterCourse(DAOCourse mdc, VueCourseInterface vuec) {
         this.mdc = mdc;
@@ -37,10 +41,10 @@ public class PresenterCourse {
 
 
     public void gestion() {
-        System.out.println("\n       **** Gestion des coureurs ****");
+        System.out.println("\n       **** Gestion des courses ****");
 
         do {
-            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Détail des courses", " Fin"});
+            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification", " Suppression", " Voir tout", " Détail des courses", " Fin"});
             switch (ch) {
                 case 1:
                     ajout();
@@ -69,23 +73,21 @@ public class PresenterCourse {
     private void detailCourse() {
 
         Course co = recherche();
-        double dou = 0.0;
 
         if (co != null) {
             do {
-                List l = null;
-                int ch = vuec.menu(new String[]{"liste des coureurs-place-gain", "gain total", "ajout coureur", "suppression coureur", "résultat", "modification", "ajout d'une étape", "suppression d'une étape", "classement complet", "retour"});
+                List li = null;
+                int ch = vuec.menu(new String[]{"liste des coureurs-place-gain", "gain total ", "ajout coureur", "suppression coureur", "résultat", "modification", "ajout d'une étape", "suppression d'une étape", "classement complet", "vainqueur", "retour"});
                 switch (ch) {
                     case 1:
-                        l = co.listeCoureursPlaceGain(); 
+                        li = mdc.listeCoureursPlaceGain(co);
                         break;
                     case 2:
-                        dou = co.gainTotal();
+                        vuec.displayMsg("Voici le gain total pour cette course: " + mdc.gainTotal(co));
                         break;
                     case 3:
-                        //boolean flag = co.addCoureur(vueco.create());
                         break;
-                    case 4: //l = co.suppCoureur();
+                    case 4:
                         break;
                     case 5: //l = co.resultat();
                         break;
@@ -98,17 +100,21 @@ public class PresenterCourse {
                     case 9: //l = co.classementComplet();
                         break;
                     case 10:
+                        break;
+                    case 11:
                         return;
 
                 }
-                if (l == null) {
-                    vuec.displayMsg("Une erreur est survenue");
-                }
-                if (l.isEmpty()) {
-                    vuec.displayMsg("Rien à afficher");
+                if (li == null) {
+                    if (ch != 2) {
+                        vuec.displayMsg("Une erreur est survenue");
+                    }
                 } else {
-                    vuec.affLobj(l);
+                    if (li.isEmpty()) {
+                        vuec.displayMsg("Rien à afficher");
+                    } else vuec.affLobj(li);
                 }
+
 
             } while (true);
         }
@@ -167,10 +173,10 @@ public class PresenterCourse {
         vuec.affAll(mdc.readAll());
     }
 
-    private void addCoureur(){
+    private void addCoureur() {
 
         Coureur coureur = pc.recherche();
-        if(coureur == null) return;
+        if (coureur == null) return;
 
     }
 
