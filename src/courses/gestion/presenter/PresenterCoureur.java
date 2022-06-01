@@ -4,6 +4,8 @@ import courses.gestion.modele.DAOCoureur;
 import courses.gestion.vue.VueCoureurInterface;
 import courses.metier.Coureur;
 
+import java.util.List;
+
 public class PresenterCoureur {
 
     private DAOCoureur mdc;
@@ -19,7 +21,7 @@ public class PresenterCoureur {
 
         do {
             System.out.println("\n");
-            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Retour"});
+            int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification", " Suppression", " Voir tout", " Retour"});
             switch (ch) {
                 case 1:
                     ajout();
@@ -58,7 +60,7 @@ public class PresenterCoureur {
     protected Coureur recherche() {
 
         String mrech = vuec.read();
-        Coureur cour = new Coureur(mrech,"","","",null);
+        Coureur cour = new Coureur(mrech, "", "", "", null);
         cour = mdc.read(cour);
         if (cour == null) {
             vuec.displayMsg("coureur introuvable");
@@ -71,7 +73,7 @@ public class PresenterCoureur {
     protected void modification() {
         Coureur cour = recherche();
         if (cour != null) {
-            cour =  vuec.update(cour);
+            cour = vuec.update(cour);
             mdc.update(cour);
         }
     }
@@ -86,14 +88,22 @@ public class PresenterCoureur {
             } while (!rep.equalsIgnoreCase("o") && !rep.equalsIgnoreCase("n"));
 
             if (rep.equalsIgnoreCase("o")) {
-                if( mdc.delete(cour))vuec.displayMsg("coureur supprimé");
+                if (mdc.delete(cour)) vuec.displayMsg("coureur supprimé");
                 else vuec.displayMsg("coureur non supprimé");
             }
         }
     }
 
-    protected void affAll() {
+    protected Coureur affAll() {
+        List<Coureur> lc = mdc.readAll();
         vuec.affAll(mdc.readAll());
+        do {
+            String chs = vuec.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+            int ch = Integer.parseInt(chs);
+            if (ch == 0) return null;
+            if (ch >= 1 && ch <= lc.size()) return lc.get(ch - 1);
+        } while (true);
     }
-
 }
+
+

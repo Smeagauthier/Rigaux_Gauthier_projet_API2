@@ -7,6 +7,7 @@ public class Classement {
     private Coureur coureur;
     private int place;
     private double gain;
+    private int idcourse;
 
     public Classement(Coureur c) {
         this.coureur = c;

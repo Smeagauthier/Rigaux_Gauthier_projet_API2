@@ -5,6 +5,8 @@ import courses.gestion.vue.VueEtapeInterface;
 import courses.metier.Coureur;
 import courses.metier.Etape;
 
+import java.util.List;
+
 public class PresenterEtape {
 
     private DAOEtape mde;
@@ -19,7 +21,7 @@ public class PresenterEtape {
         System.out.println("\n       **** Gestion des étapes ****");
 
         do {
-            int ch = vuee.menu(new String[]{" Ajout", " Recherche", " Modification"," Suppression", " Voir tout", " Retour"});
+            int ch = vuee.menu(new String[]{" Ajout", " Recherche", " Modification", " Suppression", " Voir tout", " Retour"});
             switch (ch) {
                 case 1:
                     ajout();
@@ -58,7 +60,7 @@ public class PresenterEtape {
     protected Etape recherche() {
 
         int ide = vuee.read();
-        Etape et = new Etape(ide, "", null, 0,null, null, null);
+        Etape et = new Etape(ide, "", null, 0, null, null, null);
         et = mde.read(et);
         if (et == null) {
             vuee.displayMsg("étape introuvable");
@@ -71,7 +73,7 @@ public class PresenterEtape {
     protected void modification() {
         Etape et = recherche();
         if (et != null) {
-            et =  vuee.update(et);
+            et = vuee.update(et);
             mde.update(et);
         }
     }
@@ -86,14 +88,21 @@ public class PresenterEtape {
             } while (!rep.equalsIgnoreCase("o") && !rep.equalsIgnoreCase("n"));
 
             if (rep.equalsIgnoreCase("o")) {
-                if( mde.delete(et))vuee.displayMsg("coureur supprimé");
+                if (mde.delete(et)) vuee.displayMsg("coureur supprimé");
                 else vuee.displayMsg("coureur non supprimé");
             }
         }
     }
 
-    protected void affAll() {
+    protected Etape affAll() {
+        List<Etape> le = mde.readAll();
         vuee.affAll(mde.readAll());
+        do {
+            String chs = vuee.getMsg("numéro de l'élément choisi (0 pour aucun) :");
+            int ch = Integer.parseInt(chs);
+            if (ch == 0) return null;
+            if (ch >= 1 && ch <= le.size()) return le.get(ch - 1);
+        } while (true);
     }
 
 }

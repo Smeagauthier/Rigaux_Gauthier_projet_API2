@@ -1,15 +1,9 @@
 package courses.gestion.modele;
 
-import courses.metier.Classement;
-import courses.metier.Coureur;
-import courses.metier.Course;
-import courses.metier.Ville;
+import courses.metier.*;
 import myconnections.DBConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +99,7 @@ public class ModeleCourseDB implements DAOCourse {
         }
     }
 
+
     @Override
     public List<Course> readAll() {
         String req = "select * from APICOURSE order by IDCOURSE";
@@ -129,11 +124,11 @@ public class ModeleCourseDB implements DAOCourse {
     }
 
     @Override
-    public List<Ville> listeVilles(Ville villeRech) {
-        String req = "select * from APIVILLE where idville=?";
+    public List<Ville> listeVilles(Course course) {
+        String req = "select * from APIVILLE where idville=? and IDCOURSE=? order by PAYS";
         List<Ville> lville = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setInt(1, villeRech.getIdVille());
+            pstm.setInt(2, course.getIdCourse());
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 int idVille = rs.getInt("IDVILLE");
@@ -194,6 +189,120 @@ public class ModeleCourseDB implements DAOCourse {
             return gainTot;
         } catch (Exception e) {
             return 0;
+        }
+    }
+
+    @Override
+    public boolean addCoureur(Coureur coureur) {
+        String req = "insert into APICLASSEMENT(IDCOUREUR) values (?)";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            pstm.setInt(1, coureur.getIdCoureur());
+            int n = pstm.executeUpdate();
+            if (n != 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean suppCoureur(Coureur c) {
+        String req = "delete from APICLASSEMENT where IDCOUREUR=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            pstm.setInt(1, c.getIdCoureur());
+            int n = pstm.executeUpdate();
+            if (n != 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("erreur sql : " + e);
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean resultat(Coureur coureur, int place, double gain) {
+        String query = "insert into APICLASSEMENT(IDCOUREUR, PLACE, GAIN) values(?,?,?)";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1, coureur.getIdCoureur());
+            pstm.setInt(2, place);
+            pstm.setDouble(3, gain);
+            int i = pstm.executeUpdate();
+            if (i != 0) return true;
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean modifResultat(Coureur c, int place, double gain) {
+        String query2 = "select * from APICLASSEMENT cla join APICOUREUR cour on cla.IDCOUREUR = cour.IDCOUREUR where cla.IDCOURSE=? ";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query2)) {
+            Course co = new Course();
+            pstm.setInt(1, co.getIdCourse());
+            pstm.setInt(2, c.getIdCoureur());
+            pstm.setInt(3, place);
+            pstm.setDouble(4, gain);
+            int i = pstm.executeUpdate();
+            if (i != 0) return true;
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addEtape(Etape e) {
+        String req = "insert into APIETAPE(IDCOURSE) values (?)";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            pstm.setInt(1, e.getCourse().getIdCourse());
+            int n = pstm.executeUpdate();
+            if (n != 0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean suppEtape(Etape e) {
+        String req = "delete from APIETAPE where IDCOURSE=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            pstm.setInt(1, e.getCourse().getIdCourse());
+            int n = pstm.executeUpdate();
+            if (n != 0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println("erreur sql : " + ex);
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean classementComplet() {
+        return false;
+    }
+
+    public Coureur vainqueur(Course co) {
+        String req = "select * from vainqueur where IDCOURSE=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            pstm.setInt(1, co.getIdCourse());
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                String nom = rs.getString("NOM");
+                String prenom = rs.getString("PRENOM");
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
         }
     }
 }

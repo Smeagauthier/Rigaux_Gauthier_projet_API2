@@ -1,8 +1,6 @@
 package courses.gestion.modele;
 
-import courses.metier.Classement;
-import courses.metier.Course;
-import courses.metier.Ville;
+import courses.metier.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +56,7 @@ public class ModeleCourse implements DAOCourse {
     }
 
     @Override
-    public List<Ville> listeVilles(Ville villeRech) {
+    public List<Ville> listeVilles(Course villeRech) {
         return null;
     }
 
@@ -70,6 +68,46 @@ public class ModeleCourse implements DAOCourse {
     @Override
     public double gainTotal(Course co) {
         return 0;
+    }
+
+    @Override
+    public boolean addCoureur(Coureur c) {
+        return false;
+    }
+
+    @Override
+    public boolean suppCoureur(Coureur c) {
+        return false;
+    }
+
+    @Override
+    public boolean resultat(Coureur c, int place, double gain) {
+        return false;
+    }
+
+    @Override
+    public boolean modifResultat(Coureur c, int place, double gain) {
+        return false;
+    }
+
+    @Override
+    public boolean addEtape(Etape e) {
+        return false;
+    }
+
+    @Override
+    public boolean suppEtape(Etape e) {
+        return false;
+    }
+
+    @Override
+    public boolean classementComplet() {
+        return false;
+    }
+
+    @Override
+    public Coureur vainqueur(Course co) {
+        return null;
     }
 
 }
