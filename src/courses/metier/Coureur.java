@@ -54,6 +54,10 @@ public class Coureur {
     public Coureur() {
     }
 
+    public Coureur(String nom) {
+        this.nom = nom;
+    }
+
     /**
      *
      * @param nom

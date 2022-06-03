@@ -103,7 +103,7 @@ public class ModeleCoureurDB implements DAOCoureur {
 
     @Override
     public List<Coureur> readAll() {
-        String req = "select * from APICOUREUR order by IDCOUREUR";
+        String req = "select * from APICOUREUR";
         List<Coureur> lcour = new ArrayList<>();
         try (PreparedStatement pstm = dbConnect.prepareStatement(req); ResultSet rs = pstm.executeQuery()) {
             while (rs.next()) {

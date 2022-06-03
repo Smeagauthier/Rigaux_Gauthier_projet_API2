@@ -56,7 +56,7 @@ public class ModeleCourse implements DAOCourse {
     }
 
     @Override
-    public List<Ville> listeVilles(Course villeRech) {
+    public List<Ville> listeVilles() {
         return null;
     }
 
@@ -71,7 +71,7 @@ public class ModeleCourse implements DAOCourse {
     }
 
     @Override
-    public boolean addCoureur(Coureur c) {
+    public boolean addCoureur(Coureur c, Course co) {
         return false;
     }
 
@@ -81,7 +81,7 @@ public class ModeleCourse implements DAOCourse {
     }
 
     @Override
-    public boolean resultat(Coureur c, int place, double gain) {
+    public boolean resultat(Coureur c, int place, double gain, Course co) {
         return false;
     }
 
@@ -91,7 +91,7 @@ public class ModeleCourse implements DAOCourse {
     }
 
     @Override
-    public boolean addEtape(Etape e) {
+    public boolean addEtape(Etape e, Course c) {
         return false;
     }
 
@@ -101,7 +101,7 @@ public class ModeleCourse implements DAOCourse {
     }
 
     @Override
-    public boolean classementComplet() {
+    public boolean classementComplet(Course co) {
         return false;
     }
 

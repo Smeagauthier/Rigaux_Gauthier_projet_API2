@@ -25,10 +25,11 @@ public class Gestion {
 
     public void gestion(String modeVue, String modeData) {
 
-       /* dbConnect = DBConnection.getConnection();
+       /*dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
+            System.out.println("      ---- Connexion établie ----");
             System.exit(1);
-        } */
+        }*/
 
         VueCoureurInterface vuecour;
         VueCourseInterface vuecourse;
@@ -75,8 +76,6 @@ public class Gestion {
         pcourse.setPc(pcoureur);
         pcourse.setPv(pv);
         pcourse.setPe(pe);
-
-        System.out.println("      ---- Connexion établie ----");
 
         do {
             System.out.println("         --- Menu Principal ---");

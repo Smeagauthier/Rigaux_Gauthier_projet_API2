@@ -80,13 +80,13 @@ public class PresenterCourse {
             do {
                 List li = null;
                 System.out.println("\n");
-                int ch = vuec.menu(new String[]{"liste des coureurs-place-gain", "gain total ", "gestion coureurs", "résultat", "modification du résultat", "gestion des étapes", "classement complet", "vainqueur", " liste des villes", "retour"});
+                int ch = vuec.menu(new String[]{"liste des coureurs-place-gain", "liste des villes ", "gestion coureurs", "résultat", "modification du résultat", "gestion des étapes", "classement complet", "vainqueur", " gain total", "retour"});
                 switch (ch) {
                     case 1:
                         li = mdc.listeCoureursPlaceGain(co);
                         break;
                     case 2:
-                        vuec.displayMsg("Voici le gain total pour cette course: " + mdc.gainTotal(co));
+                        li = mdc.listeVilles();
                         break;
                     case 3:
                         gestCoureur(co);
@@ -100,19 +100,22 @@ public class PresenterCourse {
                     case 6:
                         gestEtape(co);
                         break;
-                    case 7: co.classementComplet();
+                    case 7:
+                       boolean flag = co.classementComplet();
+                       if(flag) vuec.displayMsg("Tous les coureurs ont une place");
+                       else vuec.displayMsg("Classement non complet");
                         break;
                     case 8:
-                        vuec.displayMsg("Voici le vainqueur de cette course: "+mdc.vainqueur(co));
+                        vuec.displayMsg("Voici le vainqueur de cette course: " + mdc.vainqueur(co));
                         break;
                     case 9:
-                        li = mdc.listeVilles(co);
+                        vuec.displayMsg("Voici le gain total pour cette course: " + mdc.gainTotal(co));
                         break;
                     case 10:
                         return;
                 }
                 if (li == null) {
-                    if (ch != 2 && ch != 9 && ch != 3) {
+                    if(ch < 2){
                         vuec.displayMsg("Une erreur est survenue");
                     }
                 } else {
@@ -157,25 +160,17 @@ public class PresenterCourse {
     }
 
 
-
     private void addEtape(Course c) {
-        try{
-            Etape et = pe.recherche();
-            if (et == null) return;
-        }catch(Exception e){
-            System.out.println("l'erreur :"+e);
-        }
         Etape etape = pe.affAll();
         if (etape == null) return;
-        Etape e = new Etape(etape.getIdEtape(), etape.getDescription(), etape.getDateEtape(), etape.getKm(), c, etape.getVilleDepart(), etape.getVilleArrivee());
-        boolean res = mdc.addEtape(etape);
+        boolean res = mdc.addEtape(etape, c);
         if (res) vuec.displayMsg("étape ajoutée");
         else vuec.displayMsg("étape pas ajoutée");
     }
 
     private void suppEtape(Course c) {
         Etape et = pe.affAll();
-        if(et == null)return;
+        if (et == null) return;
         boolean res = mdc.suppEtape(et);
         if (res) vuec.displayMsg("étape supprimée");
         else vuec.displayMsg("étape pas supprimée");
@@ -186,7 +181,7 @@ public class PresenterCourse {
         if (cour == null) return;
         int place = Integer.parseInt(vuec.getMsg("Place: "));
         double gain = Double.parseDouble(vuec.getMsg("Gain: "));
-        boolean res = mdc.resultat(cour, place, gain);
+        boolean res = mdc.resultat(cour, place, gain, co);
         if (res) vuec.displayMsg("Résultat modifié");
         else vuec.displayMsg("Erreur de modification");
     }
@@ -194,21 +189,18 @@ public class PresenterCourse {
     private void modifResultat(Course co) {
         Coureur cour = pc.affAll();
         if (cour == null) return;
-        int place = Integer.parseInt(vuec.getMsg("nouvelle place : "));
-        double gain = Double.parseDouble(vuec.getMsg("nouveau gain : "));
-        boolean res = mdc.resultat(cour, place, gain);
+        int newplace = Integer.parseInt(vuec.getMsg("nouvelle place : "));
+        double newgain = Double.parseDouble(vuec.getMsg("nouveau gain : "));
+        boolean res = mdc.resultat(cour, newplace, newgain, co);
         if (res) vuec.displayMsg("Résultat modifié");
         else vuec.displayMsg("Erreur de modification");
     }
 
 
     private void addCoureur(Course c) {
-        Coureur co = pc.recherche();
-        if (co == null) return;
         Coureur cour = pc.affAll();
         if (cour == null) return;
-        Classement cla = new Classement(cour, 0, 0);
-        boolean res = mdc.addCoureur(cour);
+        boolean res = mdc.addCoureur(cour, c);
         if (res) vuec.displayMsg("coureur ajouté");
         else vuec.displayMsg("coureur pas ajouté");
     }
