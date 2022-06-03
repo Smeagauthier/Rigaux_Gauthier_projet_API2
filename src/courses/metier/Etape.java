@@ -16,8 +16,6 @@ public class Etape {
     private Ville villeArrivee;
 
 
-
-
     public Etape(int idEtape, int numero, String description, LocalDate dateEtape, int km, Course course, Ville villeDepart, Ville villeArrivee) {
         this.idEtape = idEtape;
         this.numero = numero;
@@ -136,6 +134,6 @@ public class Etape {
 
     @Override
     public String toString() {
-        return "ID : " + idEtape + " Numéro de l'étape : " + numero + "\t Description : " + description + "\t\n Date de l'étape : " + dateEtape + "\t Kilométrage : " + km + "\t Course : " + course.getIdCourse() + "\t Ville de départ : " + villeDepart.getNom() + "\t Ville d'arrivée : " + villeArrivee.getNom() ;
+        return "ID : " + idEtape + " Numéro de l'étape : " + numero + "\t Description : " + description + "\t\n Date de l'étape : " + dateEtape + "\t Kilométrage : " + km + "\t ID course : " + course.getIdCourse() + "\t ID ville de départ : " + villeDepart + "\t ID ville d'arrivée : " + villeArrivee.getNom();
     }
 }

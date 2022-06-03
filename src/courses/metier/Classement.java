@@ -60,6 +60,6 @@ public class Classement {
 
     @Override
     public String toString() {
-        return "coureur=" + coureur + ", place=" + place + ", gain=" + gain ;
+        return "Le coureur : \t" + coureur + " a terminé à la  " + place + "e place et a gagné " + gain+"€" ;
     }
 }

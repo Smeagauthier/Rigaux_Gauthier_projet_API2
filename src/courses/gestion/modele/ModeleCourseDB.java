@@ -42,7 +42,6 @@ public class ModeleCourseDB implements DAOCourse {
         } catch (Exception e) {
             return null;
         }
-
     }
 
     @Override
@@ -166,7 +165,7 @@ public class ModeleCourseDB implements DAOCourse {
                     return null;
                 }
             } catch (Exception e) {
-                System.out.println("l'erreur : " + e);
+                return null;
             }
             return lcla;
         } catch (Exception e) {
@@ -175,20 +174,46 @@ public class ModeleCourseDB implements DAOCourse {
     }
 
     @Override
-    public double gainTotal(Course co) {
-        String req = "select * from GAIN_TOTAL_COURSE where NOM_COURSE=?";
-        double gainTot = 0.0;
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setString(1, co.getNom());
+    public boolean resultat(Coureur coureur, int place, double gain, Course course) {
+        String query = "select * from APICLASSEMENT where IDCOUREUR=? and IDCOURSE=? ";
+        String query2 = "update APICLASSEMENT set PLACE=?, GAIN=? where IDCOUREUR=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query);
+             PreparedStatement pstm2 = dbConnect.prepareStatement(query2)) {
+            pstm.setInt(1, coureur.getIdCoureur());
+            pstm.setInt(2, course.getIdCourse());
             ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                Double gain = rs.getDouble("GAIN_TOTAL");
-                gainTot += gain;
+            if (rs.next()) {
+                pstm2.setInt(1, place);
+                pstm2.setDouble(2, gain);
+                pstm2.setInt(3, coureur.getIdCoureur());
+                pstm2.executeQuery();
+                return true;
             }
-            return gainTot;
         } catch (Exception e) {
-            return 0;
+            return false;
         }
+        return false;
+    }
+
+    @Override
+    public boolean modifResultat(Coureur c, int place, double gain) {
+        String query = "select * from APICLASSEMENT where IDCOUREUR=?";
+        String query2 = "update APICLASSEMENT set PLACE=?, GAIN=? where IDCOUREUR=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query);
+             PreparedStatement pstm2 = dbConnect.prepareStatement(query2)) {
+            pstm.setInt(1, c.getIdCoureur());
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                pstm2.setInt(3, c.getIdCoureur());
+                pstm2.setInt(1, place);
+                pstm2.setDouble(2, gain);
+                pstm2.executeQuery();
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
     }
 
     @Override
@@ -223,52 +248,6 @@ public class ModeleCourseDB implements DAOCourse {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("erreur sql : " + e);
-            return false;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean resultat(Coureur coureur, int place, double gain, Course course) {
-        String query = "select * from APICLASSEMENT where IDCOUREUR=? and IDCOURSE=? ";
-        String query2 = "update APICLASSEMENT set PLACE=?, GAIN=? where IDCOUREUR=?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(query);
-             PreparedStatement pstm2 = dbConnect.prepareStatement(query2))
-        {
-            pstm.setInt(1, coureur.getIdCoureur());
-            pstm.setInt(2, course.getIdCourse());
-            ResultSet rs = pstm.executeQuery();
-            if (rs.next()){
-                pstm2.setInt(1,place);
-                pstm2.setDouble(2, gain);
-                pstm2.setInt(3,coureur.getIdCoureur());
-                pstm2.executeQuery();
-                return true;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean modifResultat(Coureur c, int place, double gain) {
-        String query = "select * from APICLASSEMENT where IDCOUREUR=?";
-        String query2 = "update APICLASSEMENT set PLACE=?, GAIN=? where IDCOUREUR=?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(query);
-             PreparedStatement pstm2 = dbConnect.prepareStatement(query2))
-        {
-            pstm.setInt(1,c.getIdCoureur());
-            ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
-                pstm2.setInt(3,c.getIdCoureur());
-                pstm2.setInt(1,place);
-                pstm2.setDouble(2, gain);
-                pstm2.executeQuery();
-                return true;
-            }
-        } catch (Exception e) {
             return false;
         }
         return false;
@@ -279,15 +258,12 @@ public class ModeleCourseDB implements DAOCourse {
         String req = "select * from APIETAPE where IDETAPE=?";
         String req2 = "update APIETAPE set IDCOURSE=? where IDETAPE=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req);
-             PreparedStatement pstm2 = dbConnect.prepareStatement(req2))
-        {
+             PreparedStatement pstm2 = dbConnect.prepareStatement(req2)) {
             pstm.setInt(1, e.getIdEtape());
-            System.out.println("l'id: "+e.getIdEtape());
             ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
-                System.out.println("ca rentre");
+            if (rs.next()) {
                 pstm2.setInt(1, c.getIdCourse());
-                pstm2.setInt(2,e.getIdEtape());
+                pstm2.setInt(2, e.getIdEtape());
                 pstm2.executeQuery();
                 return true;
             }
@@ -302,20 +278,17 @@ public class ModeleCourseDB implements DAOCourse {
         String req = "select * from APIETAPE where IDCOURSE=? and IDETAPE=?";
         String req2 = "update APIETAPE set IDCOURSE=null where IDETAPE=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req);
-             PreparedStatement pstm2 = dbConnect.prepareStatement(req2))
-        {
+             PreparedStatement pstm2 = dbConnect.prepareStatement(req2)) {
             pstm.setInt(1, c.getIdCourse());
             pstm.setInt(2, e.getIdEtape());
-            System.out.println("l'id : "+e.getCourse().getIdCourse());
             ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 pstm2.setInt(1, e.getIdEtape());
                 pstm2.executeQuery();
                 return true;
             }
 
         } catch (Exception ex) {
-            System.out.println("erreur sql : " + ex);
             return false;
         }
         return false;
@@ -323,26 +296,36 @@ public class ModeleCourseDB implements DAOCourse {
 
     @Override
     public boolean classementComplet(Course co) {
-        String req = "select * from APICOUREUR \n" +
-                "inner join APICLASSEMENT on\n" +
-                "APICLASSEMENT.IDCOUREUR = APICOUREUR.IDCOUREUR \n" +
-                "inner join APICOURSE on \n" +
-                "APICLASSEMENT.IDCOURSE = APICOURSE.IDCOURSE \n" +
-                " where APICOURSE.IDCOURSE =? and APICLASSEMENT.PLACE != null";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+        String req = "select * from APICLASSEMENT where PLACE is null and IDCOURSE=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req))
+        {
             pstm.setInt(1, co.getIdCourse());
             ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                System.out.println("oui");
+            if(rs.next()) {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("erreur : " + e);
             return false;
         }
         return false;
     }
 
+    @Override
+    public double gainTotal(Course co) {
+        String req = "select * from GAIN_TOTAL_COURSE where NOM_COURSE=?";
+        double gainTot = 0.0;
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            pstm.setString(1, co.getNom());
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                Double gain = rs.getDouble("GAIN_TOTAL");
+                gainTot += gain;
+            }
+            return gainTot;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 
     public Coureur vainqueur(Course co) {
         String req = "select * from PILOTE_COURSE where IDCOURSE=? and PLACE=1";

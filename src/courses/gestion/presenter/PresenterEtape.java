@@ -46,7 +46,6 @@ public class PresenterEtape {
     }
 
     protected void ajout() {
-
         Etape newEt = vuee.create();
         newEt = mde.create(newEt);
         if (newEt == null) {

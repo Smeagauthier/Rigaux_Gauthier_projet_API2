@@ -34,7 +34,6 @@ public class ModeleEtapeDB implements DAOEtape {
             pstm1.setString(6, String.valueOf(etape.getVilleDepart()));
             pstm1.setString(7, String.valueOf(etape.getVilleArrivee()));
 
-            //le execute update ne se fait pas --> dû aux lignes 34-35 ? (ORA-02291 : violation de contrainte d'integrité)
             int n = pstm1.executeUpdate();
             if (n == 0) {
                 return null;
@@ -50,7 +49,7 @@ public class ModeleEtapeDB implements DAOEtape {
                 throw new Exception("aucune étape de trouvée");
             }
         } catch (Exception e) {
-            System.out.println("voici l'erreur : "+e);
+            System.out.println("erreur sql :" + e);
             return null;
         }
     }

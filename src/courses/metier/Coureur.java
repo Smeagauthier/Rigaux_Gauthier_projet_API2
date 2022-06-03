@@ -59,7 +59,6 @@ public class Coureur {
     }
 
     /**
-     *
      * @param nom
      * @param prenom
      */
@@ -244,6 +243,9 @@ public class Coureur {
      */
     @Override
     public String toString() {
-        return "Matricule : " + matricule + "\t Nom : " + nom + "\t Prénom : " + prenom + "\t Nationalité : " + nationalite + "\t\t Date de naissance : " + dateNaiss ;
+        if (this.matricule == null) {
+            return prenom + " " + nom;
+        }
+        return "(ID=" + idCoureur + ")\tMatricule : " + matricule + "\t Nom : " + nom + "\t Prénom : " + prenom + "\t Nationalité : " + nationalite + "\t\t Date de naissance : " + dateNaiss;
     }
 }
