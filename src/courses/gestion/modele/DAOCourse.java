@@ -14,7 +14,7 @@ public interface DAOCourse extends DAO<Course>{
     boolean resultat(Coureur c, int place, double gain, Course co);
     boolean modifResultat(Coureur c, int place, double gain);
     boolean addEtape(Etape e, Course c);
-    boolean suppEtape(Etape e);
+    boolean suppEtape(Etape e, Course c);
     boolean classementComplet(Course co);
     Coureur vainqueur(Course co);
 

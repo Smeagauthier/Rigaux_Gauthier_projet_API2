@@ -171,7 +171,7 @@ public class PresenterCourse {
     private void suppEtape(Course c) {
         Etape et = pe.affAll();
         if (et == null) return;
-        boolean res = mdc.suppEtape(et);
+        boolean res = mdc.suppEtape(et, c);
         if (res) vuec.displayMsg("étape supprimée");
         else vuec.displayMsg("étape pas supprimée");
     }

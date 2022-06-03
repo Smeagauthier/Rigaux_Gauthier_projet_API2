@@ -96,7 +96,7 @@ public class ModeleCourse implements DAOCourse {
     }
 
     @Override
-    public boolean suppEtape(Etape e) {
+    public boolean suppEtape(Etape e, Course c) {
         return false;
     }
 

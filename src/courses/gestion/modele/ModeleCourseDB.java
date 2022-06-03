@@ -277,7 +277,7 @@ public class ModeleCourseDB implements DAOCourse {
     @Override
     public boolean addEtape(Etape e, Course c) {
         String req = "select * from APIETAPE where IDETAPE=?";
-        String req2 = "insert into APIETAPE(IDCOURSE) values (?)";
+        String req2 = "update APIETAPE set IDCOURSE=? where IDETAPE=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req);
              PreparedStatement pstm2 = dbConnect.prepareStatement(req2))
         {
@@ -287,6 +287,7 @@ public class ModeleCourseDB implements DAOCourse {
             if(rs.next()){
                 System.out.println("ca rentre");
                 pstm2.setInt(1, c.getIdCourse());
+                pstm2.setInt(2,e.getIdEtape());
                 pstm2.executeQuery();
                 return true;
             }
@@ -297,14 +298,22 @@ public class ModeleCourseDB implements DAOCourse {
     }
 
     @Override
-    public boolean suppEtape(Etape e) {
-        String req = "delete from APIETAPE where IDCOURSE=?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setInt(1, e.getCourse().getIdCourse());
-            int n = pstm.executeUpdate();
-            if (n != 0) {
+    public boolean suppEtape(Etape e, Course c) {
+        String req = "select * from APIETAPE where IDCOURSE=? and IDETAPE=?";
+        String req2 = "update APIETAPE set IDCOURSE=null where IDETAPE=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req);
+             PreparedStatement pstm2 = dbConnect.prepareStatement(req2))
+        {
+            pstm.setInt(1, c.getIdCourse());
+            pstm.setInt(2, e.getIdEtape());
+            System.out.println("l'id : "+e.getCourse().getIdCourse());
+            ResultSet rs = pstm.executeQuery();
+            if(rs.next()){
+                pstm2.setInt(1, e.getIdEtape());
+                pstm2.executeQuery();
                 return true;
             }
+
         } catch (Exception ex) {
             System.out.println("erreur sql : " + ex);
             return false;
