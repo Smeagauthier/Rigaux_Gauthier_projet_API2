@@ -30,7 +30,7 @@ public class ModeleEtapeDB implements DAOEtape {
             pstm1.setString(2, etape.getDescription());
             pstm1.setDate(3, Date.valueOf(etape.getDateEtape()));
             pstm1.setInt(4, etape.getKm());
-            pstm1.setInt(5, etape.getCourse().getIdCourse());
+            pstm1.setInt(5, etape.getCourse().getIdCourse()); //Je dois récupérer l'IDCOURSE pour créer une étape mais comment faire sans changer la signature du create qui vient du DAO générique ?
             pstm1.setString(6, String.valueOf(etape.getVilleDepart()));
             pstm1.setString(7, String.valueOf(etape.getVilleArrivee()));
 
@@ -53,6 +53,7 @@ public class ModeleEtapeDB implements DAOEtape {
             return null;
         }
     }
+
 
     @Override
     public boolean delete(Etape etapeRech) {
@@ -95,12 +96,10 @@ public class ModeleEtapeDB implements DAOEtape {
 
     @Override
     public Etape update(Etape etapeRech) {
-        String req = "update from APIETAPE set DESCRIPTION=?, DATEETAPE=?, KM=? where NUMERO=?";
+        String req = "update APIETAPE set DATEETAPE=? where NUMERO=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setInt(4, etapeRech.getNumero());
-            pstm.setString(1, etapeRech.getDescription());
-            pstm.setDate(2, Date.valueOf(etapeRech.getDateEtape()));
-            pstm.setInt(3, etapeRech.getKm());
+            pstm.setInt(2, etapeRech.getNumero());
+            pstm.setDate(1, Date.valueOf(etapeRech.getDateEtape()));
             int n = pstm.executeUpdate();
             if (n == 0) {
                 throw new Exception("aucune étape n'a été mise à jour");

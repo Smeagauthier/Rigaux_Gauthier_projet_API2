@@ -1,8 +1,11 @@
 package courses.gestion.presenter;
 
+import courses.gestion.modele.DAOCourse;
 import courses.gestion.modele.DAOEtape;
+import courses.gestion.vue.VueCourseInterface;
 import courses.gestion.vue.VueEtapeInterface;
 import courses.metier.Coureur;
+import courses.metier.Course;
 import courses.metier.Etape;
 
 import java.util.List;
@@ -11,10 +14,17 @@ public class PresenterEtape {
 
     private DAOEtape mde;
     private VueEtapeInterface vuee;
+    private DAOCourse mdc;
+    private PresenterCourse pc;
+    private PresenterEtape pe;
 
     public PresenterEtape(DAOEtape mde, VueEtapeInterface vuee) {
         this.mde = mde;
         this.vuee = vuee;
+    }
+
+    public void setPc(PresenterCourse pc) {
+        this.pc = pc;
     }
 
     public void gestion() {
@@ -22,18 +32,17 @@ public class PresenterEtape {
 
         do {
             System.out.println("\n");
-            int ch = vuee.menu(new String[]{" Ajout", " Recherche", " Modification", " Suppression", " Voir tout", " Retour"});
+            int ch = vuee.menu(new String[]{" Ajout (ne fonctionne pas)", " Recherche", " Modification", " Suppression", " Voir tout", " Retour"});
             switch (ch) {
                 case 1:
-                    vuee.displayMsg("L'ajout ne fonctionne pas car il y a une violation de contrainte d'intégrité - clé parent introuvable (ORA-02291)");
+                    vuee.displayMsg("L'ajout ne fonctionne pas car il y a une violation de contrainte d'intégrité - clé parent introuvable (ORA-02291) à cause de l'IDCOURSE (cf ligne commentée dans le create de ModeleEtapeDB)");
                     //ajout();
                     break;
                 case 2:
                     recherche();
                     break;
                 case 3:
-                    vuee.displayMsg("La modification ne se fait pas, le setter n'attrivue pas la nouvelle date dans la vue");
-                    //modification();
+                    modification();
                     break;
                 case 4:
                     suppression();

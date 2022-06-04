@@ -1,6 +1,7 @@
 package courses.gestion.modele;
 
 import courses.metier.Coureur;
+import courses.metier.Course;
 import courses.metier.Etape;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class ModeleEtape implements DAOEtape {
         mesEtapes.add(newEtape);
         return newEtape;
     }
+
 
     @Override
     public boolean delete(Etape etapeRech) {

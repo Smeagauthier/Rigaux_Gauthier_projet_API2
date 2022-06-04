@@ -42,6 +42,7 @@ public class PresenterCourse {
         this.pe = pe;
     }
 
+
     public void gestion() {
         System.out.println("\n       **** Gestion des courses ****");
 

@@ -76,6 +76,7 @@ public class Gestion {
         pcourse.setPc(pcoureur);
         pcourse.setPv(pv);
         pcourse.setPe(pe);
+        pe.setPc(pcourse);
 
         do {
             System.out.println("         --- Menu Principal ---");
