@@ -18,7 +18,6 @@ public class PresenterCoureur {
 
     public void gestion() {
         System.out.println("\n       **** Gestion des coureurs ****");
-
         do {
             System.out.println("\n");
             int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification", " Suppression", " Voir tout", " Retour"});
@@ -36,7 +35,7 @@ public class PresenterCoureur {
                     suppression();
                     break;
                 case 5:
-                    affAll();
+                    voirTout();
                     break;
                 case 6:
                     return;
@@ -103,6 +102,10 @@ public class PresenterCoureur {
             if (ch == 0) return null;
             if (ch >= 1 && ch <= lc.size()) return lc.get(ch - 1);
         } while (true);
+    }
+
+    protected void voirTout() {
+        vuec.affAll(mdc.readAll());
     }
 }
 

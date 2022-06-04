@@ -46,6 +46,7 @@ public class PresenterCourse {
         System.out.println("\n       **** Gestion des courses ****");
 
         do {
+            System.out.println("\n");
             int ch = vuec.menu(new String[]{" Ajout", " Recherche", " Modification", " Suppression", " Voir tout", " Détail des courses", " Fin"});
             switch (ch) {
                 case 1:

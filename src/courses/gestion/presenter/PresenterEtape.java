@@ -21,22 +21,25 @@ public class PresenterEtape {
         System.out.println("\n       **** Gestion des étapes ****");
 
         do {
+            System.out.println("\n");
             int ch = vuee.menu(new String[]{" Ajout", " Recherche", " Modification", " Suppression", " Voir tout", " Retour"});
             switch (ch) {
                 case 1:
-                    ajout();
+                    vuee.displayMsg("L'ajout ne fonctionne pas car il y a une violation de contrainte d'intégrité - clé parent introuvable (ORA-02291)");
+                    //ajout();
                     break;
                 case 2:
                     recherche();
                     break;
                 case 3:
-                    modification();
+                    vuee.displayMsg("La modification ne se fait pas, le setter n'attrivue pas la nouvelle date dans la vue");
+                    //modification();
                     break;
                 case 4:
                     suppression();
                     break;
                 case 5:
-                    affAll();
+                    voirTout();
                     break;
                 case 6:
                     return;
@@ -87,8 +90,8 @@ public class PresenterEtape {
             } while (!rep.equalsIgnoreCase("o") && !rep.equalsIgnoreCase("n"));
 
             if (rep.equalsIgnoreCase("o")) {
-                if (mde.delete(et)) vuee.displayMsg("coureur supprimé");
-                else vuee.displayMsg("coureur non supprimé");
+                if (mde.delete(et)) vuee.displayMsg("étape supprimée");
+                else vuee.displayMsg("étape non supprimée");
             }
         }
     }
@@ -102,6 +105,10 @@ public class PresenterEtape {
             if (ch == 0) return null;
             if (ch >= 1 && ch <= le.size()) return le.get(ch - 1);
         } while (true);
+    }
+
+    protected void voirTout() {
+        vuee.affAll(mde.readAll());
     }
 
 }

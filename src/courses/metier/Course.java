@@ -132,7 +132,7 @@ public class Course {
 
     @Override
     public String toString() {
-        return "ID : " + idCourse + "\t Nom : " + nom + "\t Date de début : " + dateDebut + "\t Date de fin : " + dateFin + "\n Kilomètres totaux : " + kmTotal + "\t Cash prize : " + priceMoney + "\t Liste des étapes : " + listeEtape;
+        return "ID : " + idCourse + "\t Nom : " + nom + "\t Date de début : " + dateDebut + "\t Date de fin : " + dateFin + "\n Kilomètres totaux : " + kmTotal + "\t Cash prize : " + priceMoney +"€";
     }
 
     /*-------------------------------------------------------------------------------------------------------------*/

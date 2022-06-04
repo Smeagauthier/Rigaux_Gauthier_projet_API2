@@ -246,6 +246,6 @@ public class Coureur {
         if (this.matricule == null) {
             return prenom + " " + nom;
         }
-        return "(ID=" + idCoureur + ")\tMatricule : " + matricule + "\t Nom : " + nom + "\t Prénom : " + prenom + "\t Nationalité : " + nationalite + "\t\t Date de naissance : " + dateNaiss;
+        return "Matricule : " + matricule + "\t Nom : " + nom + "\t Prénom : " + prenom + "\t Nationalité : " + nationalite + "\t\t Date de naissance : " + dateNaiss;
     }
 }

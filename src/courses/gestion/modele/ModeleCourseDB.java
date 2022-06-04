@@ -125,22 +125,27 @@ public class ModeleCourseDB implements DAOCourse {
     @Override
     public List<Ville> listeVilles() {
         String req = "select * from APIVILLE  order by PAYS";
+        String req2 = "select distinct NOM from APIVILLE ";
         List<Ville> lville = new ArrayList<>();
-        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req);
+             PreparedStatement pstm2 = dbConnect.prepareStatement(req2))
+        {
             ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                int idVille = rs.getInt("IDVILLE");
-                String nom = rs.getString("NOM");
-                String pays = rs.getString("PAYS");
-                Double latitude = rs.getDouble("LATITUDE");
-                Double longitude = rs.getDouble("LONGITUDE");
-                lville.add(new Ville(idVille, nom, pays, latitude, longitude));
+            while(rs.next()) {
+                int n = pstm2.executeUpdate();
+                if(n != 0){
+                    int idVille = rs.getInt("IDVILLE");
+                    String nom = rs.getString("NOM");
+                    String pays = rs.getString("PAYS");
+                    Double latitude = rs.getDouble("LATITUDE");
+                    Double longitude = rs.getDouble("LONGITUDE");
+                    lville.add(new Ville(idVille, nom, pays, latitude, longitude));
+                }
             }
             if (lville.isEmpty()) {
                 return null;
             }
             return lville;
-
         } catch (Exception e) {
             return null;
         }

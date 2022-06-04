@@ -19,7 +19,7 @@ public class ModeleCoureurDB implements DAOCoureur {
     @Override
     public Coureur create(Coureur newCour) {
         String req1 = "insert into APICOUREUR(MATRICULE, NOM, PRENOM, DATENAISS, NATIONALITE) values (?,?,?,?,?)";
-        String req2 = "select IDCOUREUR from APICLIENT where MATRICULE=?";
+        String req2 = "select IDCOUREUR from APICOUREUR where MATRICULE=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(req1); PreparedStatement pstm2 = dbConnect.prepareStatement(req2)) {
             pstm1.setString(1, newCour.getMatricule());
             pstm1.setString(2, newCour.getNom());
@@ -39,11 +39,9 @@ public class ModeleCoureurDB implements DAOCoureur {
             } else {
                 throw new Exception("Aucun coureur n'a été trouvé");
             }
-
         } catch (Exception e) {
             return null;
         }
-
     }
 
     @Override

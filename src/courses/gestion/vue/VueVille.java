@@ -12,8 +12,8 @@ public class VueVille extends VueCommune implements VueVilleInterface {
     public Ville create() {
         String nomville = getMsg("Nom de la ville : ");
         String pays = getMsg("Pays : ");
-        Double latitude = Double.parseDouble(getMsg("Latitude : "));
-        Double longitude = Double.parseDouble(getMsg("Longitude : "));
+        Double latitude = Double.parseDouble(getMsg("Latitude (xx.xxxx) : "));
+        Double longitude = Double.parseDouble(getMsg("Longitude (xx.xxxx) : "));
 
         Ville newVi = new Ville(nomville, pays, latitude, longitude);
         return newVi;
